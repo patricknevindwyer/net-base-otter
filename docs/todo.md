@@ -36,10 +36,14 @@
   - [x] double width
   - [x] closed/open
  - [x] nes.css surround
- - [ ] entry point
+ - [x] entry point
   - [x] tile
   - [x] positioning of player
  - [ ] exit tiles
+  - [x] e
+  - [ ] w
+  - [ ] s
+  - [ ] n
  - [ ] your computer stats
  - [ ] basic crypto miner app
  - [ ] interact with computers
@@ -53,11 +57,7 @@
  - [ ] tile loads/specs as part of the game_map structure
  - [x] add collision boxes for elbow nubs
  - [ ] collision boxes for doors?
-
-Player token
- - 7px border on left, 
- - 8px on right 
- - 17px wide
- - 7px on top
- - 17px tall
- - 8px on bottom
+ - [ ] random map generator
+ - [ ] home base generator
+ - [ ] teleport to home
+ - [ ] network map to select destination
