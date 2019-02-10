@@ -1,5 +1,5 @@
  - [x] hallways
- - [ ] New avatar
+ - [x] New avatar
   - [x] smaller hit box
   - [x] animated
  - [x] doors/exits
@@ -8,7 +8,12 @@
   - [x] e
   - [x] w
   - [x] hall horizontal
- - [ ] elbox hallways
+ - [x] elbox hallways
+  - [x] nw
+  - [x] ne
+  - [x] sw
+  - [x] se
+ - [ ] compound hit boxes for corners
   - [ ] nw
   - [ ] ne
   - [ ] sw
@@ -31,6 +36,11 @@
  - [ ] interact with computers
  - [ ] install miner
  - [ ] time tick/earning
+ - [ ] computer/storage/tile animation
+ - [ ] bots/moving entities
+ - [ ] map swapping
+ - [ ] tile loads/specs as part of the game_map structure
+ - [ ] add collision boxes for elbow nubs
 
 
 Player token

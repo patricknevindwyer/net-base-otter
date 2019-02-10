@@ -70,7 +70,7 @@ var game_map = {
                 children: [
                     {
                         collision: [0, 26, 32, 26, 32, 32, 0, 32],
-                        props: "2d, Canvas, Collision, solid" + opt_props
+                        props: "2D, Canvas, Collision, solid" + opt_props
                     }
                 ]                
             },
@@ -85,23 +85,64 @@ var game_map = {
             },
             "b_door_e": {
                 props: "2D, Canvas, blue_door_e" + opt_props,                
+            },
+            "b_elb_sw": {
+                props: "2D, Canvas, solid, blue_elbow_sw, Collision" + opt_props,
+                collision: [0, 0, 6, 0, 6, 32, 0, 32],
+                children: [
+                    {
+                        collision: [6, 26, 32, 26, 32, 32, 6, 32],
+                        props: "2D, Canvas, Collision, solid" + opt_props
+                    }
+                ]
+            },
+            "b_elb_se": {
+                props: "2D, Canvas, solid, blue_elbow_se, Collision" + opt_props,
+                collision: [26, 0, 32, 0, 32, 32, 26, 32],
+                children: [
+                    {
+                        collision: [0, 26, 26, 26, 26, 32, 0, 32],
+                        props: "2D, Canvas, Collision, solid" + opt_props
+                    }
+                ]
+            },
+            "b_elb_ne": {
+                props: "2D, Canvas, solid, blue_elbow_ne, Collision" + opt_props,
+                collision: [26, 0, 32, 0, 32, 32, 26, 32],
+                children: [
+                    {
+                        collision: [0, 0, 26, 0, 26, 6, 0, 6],
+                        props: "2D, Canvas, Collision, solid" + opt_props
+                    }
+                ]                
+            },
+            "b_elb_nw": {
+                props: "2D, Canvas, solid, blue_elbow_nw, Collision" + opt_props,
+                collision: [0, 0, 32, 0, 32, 6, 0, 6],
+                children: [
+                    {
+                        collision: [0, 6, 6, 6, 6, 32, 0, 32],
+                        props: "2D, Canvas, Collision, solid" + opt_props
+                    }
+                ]                                
             }
+            
         }
     },
     map_size: {width: 14, height: 12},
     map: [
-        [""    , "b_nw"    , "b_n" , "b_n"     , "b_n" , "b_n"     , "b_n"     , "b_n" , "b_n" , "b_n" , "b_n" , "b_n" , "b_ne"    , ""     ],
-        ["b_nw", "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "b_ne_nub", "b_ne" ],
-        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "b_e"     , ""    , "b_w"     , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_sw", "b_sw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "b_se_nub", "b_se" ],
-        [""    , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_door_s", "b_s"     , "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_se"    , ""     ],
-        [""    , ""        , ""    , ""        , ""    , "b_hall_v", ""        , ""    , ""    , ""    , ""    , ""    , ""        , ""     ],
-        [""    , ""        , ""    , ""        , ""    , ""        , "b_hall_h", ""    , ""    , ""    , ""    , ""    , ""        , ""     ],
+        ["b_elb_nw", "b_n"    , "b_n" , "b_n"     , "b_n" , "b_n"     , "b_n"     , "b_n"     , "b_n"     , "b_n"     , "b_n" , "b_n" , "b_ne"    , ""     ],
+        ["b_elb_sw", "b_door_w", "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"   , "c"   , "b_ne_nub", "b_ne" ],
+        [""        , "b_w"     , "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_nw"    , "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w"     , "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"       , "c"       , "c"       , "c"       , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w"     , "c"       , "c"   , "b_e"     , ""    , "b_w"     , "c"       , "c"       , "c"       , "c"       , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w"     , "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"       , "b_se_nub", "b_door_s", "b_s"     , "b_s" , "b_s" , "b_s"     , "b_se" ],
+        ["b_w"     , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "b_e"     , "c"       , "c"       , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_sw"    , "b_sw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "b_door_e", "b_hall_h", "b_elb_ne", "c"   , "c"   , "b_se_nub", "b_se" ],
+        [""        , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_door_s", "b_s"     , "b_se"    , ""        , "b_hall_v", "b_s" , "b_s" , "b_se"    , ""     ],
+        [""        , ""        , ""    , ""        , ""    , "b_hall_v", ""        , ""        , ""        , "b_hall_v", ""    , ""    , ""        , ""     ],
+        [""        , ""        , ""    , ""        , ""    , "b_elb_sw", "b_hall_h", "b_hall_h", "b_hall_h", "b_elb_se", ""    , ""    , ""        , ""     ],
         
         
     ]
@@ -142,7 +183,11 @@ window.onload = function() {
         blue_door_s: [8, 2],
         blue_door_n: [10, 2],
         blue_door_w: [9, 2],
-        blue_door_e: [11, 2]
+        blue_door_e: [11, 2],
+        blue_elbow_sw: [10, 1],
+        blue_elbow_se: [11, 1],
+        blue_elbow_ne: [11, 0],
+        blue_elbow_nw: [10, 0]
 	});
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
@@ -238,11 +283,6 @@ window.onload = function() {
 			init: function() {
 					//setup animations
 					this.requires("SpriteAnimation, Collision")
-					// .reel("player", 20, 0, 0, 5)
-                    // .reel("walk_right", 0, 3, 3)
-                    // .reel("walk_up", 0, 3, 3)
-                    // .reel("walk_down", 0, 3, 3)
-                    // .animate("player", -1)
 					//change direction when a direction change event is received
 					.bind("NewDirection",
 						function (direction) {
