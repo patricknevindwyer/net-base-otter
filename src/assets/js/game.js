@@ -5,24 +5,37 @@ var game_map = {
         tile_set: {
             "b_nw": {
                 props: "2D, Canvas, solid, blue_wall_nw, Collision, SolidHitBox",
-                collision: [0, 0, 32, 0, 32, 6, 6, 32, 0, 32]
+                collision: [0, 0, 16, 0, 16, 16, 0, 16]
             },
             "b_n" : {
                 props: "2D, Canvas, solid, blue_wall_n, Collision, SolidHitBox",
                 collision: [0, 0, 32, 0, 32, 6, 0, 6]
             },
-            "b_ne": {props: "2D, Canvas, solid, blue_wall_ne, Collision, SolidHitBox"},
+            "b_ne": {
+                props: "2D, Canvas, solid, blue_wall_ne, Collision, SolidHitBox",
+                collision: [16, 0, 32, 0, 32, 16, 16, 16]
+            },
             "b_w" : {
                 props: "2D, Canvas, solid, blue_wall_w, Collision, SolidHitBox",
                 collision: [0, 0, 6, 0, 6, 32, 0, 32]
             },
             "c"   : {props: "2D, Canvas, floor_tile"},
-            "b_e" : {props: "2D, Canvas, solid, blue_wall_e, Collision, SolidHitBox"},
-            "b_sw": {props: "2D, Canvas, solid, blue_wall_sw, Collision, SolidHitBox"},
-            "b_s" : {
-                props: "2D, Canvas, solid, blue_wall_s, Collision, SolidHitBox"
+            "b_e" : {
+                props: "2D, Canvas, solid, blue_wall_e, Collision, SolidHitBox",
+                collision: [26, 0, 32, 0, 32, 32, 26, 32]
             },
-            "b_se": {props: "2D, Canvas, solid, blue_wall_se, Collision, SolidHitBox"},
+            "b_sw": {
+                props: "2D, Canvas, solid, blue_wall_sw, Collision, SolidHitBox",
+                collision: [0, 16, 16, 16, 16, 32, 0, 32]
+            },
+            "b_s" : {
+                props: "2D, Canvas, solid, blue_wall_s, Collision, SolidHitBox",
+                collision: [0, 26, 32, 26, 32, 32, 0, 32]
+            },
+            "b_se": {
+                props: "2D, Canvas, solid, blue_wall_se, Collision, SolidHitBox",
+                collision: [16, 16, 32, 16, 32, 32, 16, 32]
+            },
             "b_nw_nub": {
                 props: "2D, Canvas, solid, blue_wall_nw_nub, Collision, SolidHitBox",
                 collision: [0, 0, 6, 0, 6, 6, 0, 6]
@@ -194,10 +207,15 @@ window.onload = function() {
                         var hitDatas, hitData;
 						if((hitDatas = this.hit('solid'))){
                             
-                            // for (var hit_idx = 0; hit_idx < hitDatas.length; hit_idx++) {
-                            //     hitData = hitDatas[hit_idx];
-                            // }
+                            // default to the first hit data
                             hitData = hitDatas[0];
+                            
+                            // find the largest magnatude hit data
+                            for (var hit_idx = 0; hit_idx < hitDatas.length; hit_idx++) {
+                                if (Math.abs(hitDatas[hit_idx].overlap) > Math.abs(hitData.overlap)) {
+                                    hitData = hitDatas[hit_idx];                                    
+                                }
+                            }
                             
                             if (hitData.type === 'SAT') {
                                 this.x -= hitData.overlap * hitData.nx;
