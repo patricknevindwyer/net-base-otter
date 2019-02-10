@@ -18,11 +18,11 @@
   - [x] ne
   - [x] sw
   - [x] se
- - [ ] hall tee
-  - [ ] n
-  - [ ] s
-  - [ ] e
-  - [ ] w
+ - [x] hall tee
+  - [x] n
+  - [x] s
+  - [x] e
+  - [x] w
  - [ ] expanded demo level
   - [ ] all doors
   - [ ] elbows
@@ -34,6 +34,8 @@
  - [ ] your computer stats
  - [ ] basic crypto miner app
  - [ ] interact with computers
+ - [ ] doors? 
+  - activate/interact with doors
  - [ ] install miner
  - [ ] time tick/earning
  - [ ] computer/storage/tile animation
