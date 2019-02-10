@@ -1,0 +1,11 @@
+ - [ ] New avatar, smaller hit box
+ - [ ] hallways
+ - [ ] doors/exits
+ - [ ] computers (alternate sprite sheet)
+ - [ ] storage (alternate sprite sheet)
+ - [ ] nes.css surround
+ - [ ] your computer stats
+ - [ ] basic crypto miner app
+ - [ ] interact with computers
+ - [ ] install miner
+ - [ ] time tick/earning
