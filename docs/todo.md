@@ -37,8 +37,8 @@
   - [x] closed/open
  - [x] nes.css surround
  - [ ] entry point
-  - [ ] tile
-  - [ ] positioning of player
+  - [x] tile
+  - [x] positioning of player
  - [ ] exit tiles
  - [ ] your computer stats
  - [ ] basic crypto miner app
