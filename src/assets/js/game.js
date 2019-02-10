@@ -53,10 +53,24 @@ var game_map = {
             "b_se_nub": {
                 props: "2D, Canvas, solid, blue_wall_se_nub, Collision" + opt_props,
                 collision: [26, 26, 32, 26, 32, 32, 26, 32]
+            },
+            "b_hall_v": {
+                props: "2D, Canvas, solid, blue_hall_vert, Collision" + opt_props,
+                collision: [0, 0, 6, 0, 6, 32, 0, 32],
+                children: [
+                    {
+                        collision: [26, 0, 32, 0, 32, 32, 26, 32],
+                        props: "2d, Canvas, Collision, solid" + opt_props
+                    }
+                ]
+            },
+            "b_hall_h": {},
+            "b_door_s": {
+                props: "2D, Canvas, blue_door_s" + opt_props,                
             }
         }
     },
-    map_size: {width: 14, height: 10},
+    map_size: {width: 14, height: 11},
     map: [
         [""    , "b_nw"    , "b_n" , "b_n"     , "b_n" , "b_n"     , "b_n" , "b_n" , "b_n" , "b_n" , "b_n" , "b_n" , "b_ne"    , ""     ],
         ["b_nw", "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "b_ne_nub", "b_ne" ],
@@ -67,7 +81,9 @@ var game_map = {
         ["b_w" , "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
         ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
         ["b_sw", "b_sw_nub", "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "b_se_nub", "b_se" ],
-        [""    , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_s"     , "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_se"    , ""     ]
+        [""    , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_door_s", "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_se"    , ""     ],
+        [""    , ""        , ""    , ""        , ""    , "b_hall_v", ""    , ""    , ""    , ""    , ""    , ""    , ""        , ""     ],
+        
         
     ]
 }
@@ -89,7 +105,7 @@ window.onload = function() {
 		flower: [0,1],
 		bush1: [6,0],
 		bush2: [6,0],
-		player: [2,5],
+        // player: [2,5],
         blue_wall_nw: [5, 0],
         blue_wall_n: [6, 0],
         blue_wall_ne: [7, 0],
@@ -102,21 +118,45 @@ window.onload = function() {
         blue_wall_ne_nub: [8, 1],
         blue_wall_sw_nub: [9, 0],
         blue_wall_se_nub: [8, 0],
-        floor_tile: [6, 1]
+        floor_tile: [6, 1],
+        blue_hall_vert: [4, 1],
+        blue_hall_horz: [4, 2],
+        blue_door_s: [8, 2]
 	});
 	
+    Crafty.sprite(16, "assets/img/avatar_16x16.png", {
+        player: [0, 0]
+    });
+    
     function generateGameMap() {
         for (var mx = 0; mx < game_map.map_size.width; mx++) {
             for (var my = 0; my < game_map.map_size.height; my++) {
                 
-                // get the curren tile
+                // get the current tile
                 var tile_id = game_map.map[my][mx];
+                
+                // skip empty tiles
                 if (tile_id !== "") {
+                    
+                    // the tile ID in the map translates to a tile definition in the tile set
                     var tile_data = game_map.tiles.tile_set[tile_id];
                     var tile_e = Crafty.e(tile_data.props).attr({x: mx * game_map.tiles.width, y: my * game_map.tiles.height});
-                
+                    
+                    // apply any collision data
                     if (typeof tile_data.collision !== 'undefined') {
                         tile_e.collision(tile_data.collision);
+                    }
+                    
+                    // check for child overlay objects
+                    if (typeof tile_data.children !== 'undefined') {
+                        for (var child_idx = 0; child_idx < tile_data.children.length; child_idx++) {
+                            var child_data = tile_data.children[child_idx];
+                            var child = Crafty.e(child_data.props).attr({x: mx * game_map.tiles.width, y: my * game_map.tiles.height});
+                            if (typeof child_data.collision !== 'undefined') {
+                                child.collision(child_data.collision)
+                            }
+                            tile_e.attach(child)
+                        }
                     }
                 }
             }
@@ -249,7 +289,10 @@ window.onload = function() {
 		//create our player entity with some premade components
 		player = Crafty.e("2D, Canvas, player, RightControls, Hero, Animate, Collision")
 			.attr({x: 192, y: 128, z: 20})
-            .collision([0, 0, 32, 0, 32, 32, 0, 32])
+            // .collision([0, 0, 32, 0, 32, 32, 0, 32])
+            // .collision([7, 7, 24, 7, 24, 24, 7, 24])
+            // .collision([0, 0, 17, 0, 17, 17, 0, 17])
+            .collision([0, 0, 16, 0, 16, 16, 0, 16])
 			.rightControls(200);
 	});
     
