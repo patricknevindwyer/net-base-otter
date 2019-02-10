@@ -205,24 +205,61 @@ var game_map = {
                         props: "2D, Canvas, Collision, solid" + opt_props
                     }
                 ]                
-            }
+            },
+            "cpu_1_a": {
+                props: "2D, Canvas, solid, computer_single_a, Collision" + opt_props
+            },
+            "cpu_1_b": {
+                props: "2D, Canvas, solid, computer_single_b, Collision" + opt_props
+            },
+            "cpu_1_c": {
+                props: "2D, Canvas, solid, computer_single_c, Collision" + opt_props
+            },
+            "cpu_2_at": {
+                props: "2D, Canvas, computer_double_a_top",
+                attrs: {
+                    z: 1000
+                }
+            },
+            "cpu_2_ab": {
+                props: "2D, Canvas, solid, computer_double_a_bot, Collision" + opt_props
+            },
+            "cpu_2_bt": {
+                props: "2D, Canvas, computer_double_b_top",
+                attrs: {
+                    z: 1000
+                }
+            },
+            "cpu_2_bb": {
+                props: "2D, Canvas, solid, computer_double_b_bot, Collision" + opt_props
+            },
+            "cpu_2_ct": {
+                props: "2D, Canvas, computer_double_c_top",
+                attrs: {
+                    z: 1000
+                }
+            },
+            "cpu_2_cb": {
+                props: "2D, Canvas, solid, computer_double_c_bot, Collision" + opt_props
+            },
+            
             
         }
     },
     map_size: {width: 14, height: 12},
     map: [
-        ["b_elb_nw", "b_n"    , "b_n" , "b_n"     , "b_n"  , "b_hall_h", "b_tee_n" , "b_hall_h", "b_n"     , "b_n"     , "b_n"     , "b_n"     , "b_ne"    , ""        ],
-        ["b_elb_sw", "b_door_w", "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_ne_nub", "b_ne"    ],
-        [""        , "b_w"     , "c"   , "c"       , "c"   , "c"       , "c"       , "b_nw"    , "b_door_n", "b_ne"    , "c"       , "c"       , "c"       , "b_e"     ],
-        ["b_nw"    , "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "b_door_w", "c"       , "b_door_e", "c"       , "c"       , "c"       , "b_hall_v"],
-        ["b_hall_v", "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"       , "b_sw"    , "b_door_s", "b_se"    , "c"       , "c"       , "c"       , "b_tee_e" ],
-        ["b_tee_w" , "c"       , "c"   , "b_e"     , ""    , "b_w"     , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_hall_v"],
-        ["b_hall_v", "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"       , "b_se_nub", "b_door_s", "b_hall_h", "b_tee_s" , "b_hall_h", "b_hall_h", "b_elb_se"],
-        ["b_w"     , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "b_e"     , "c"       , "c"       , "c"       , "c"       , "c"       , "b_e"     ],
-        ["b_sw"    , "b_sw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "b_door_e", "b_hall_h", "b_elb_ne", "c"       , "c"       , "b_se_nub", "b_se"    ],
-        [""        , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_door_s", "b_s"     , "b_se"    , ""        , "b_hall_v", "b_s"     , "b_s"     , "b_se"    , ""        ],
-        [""        , ""        , ""    , ""        , ""    , "b_hall_v", ""        , ""        , ""        , "b_hall_v", ""        , ""        , ""        , ""        ],
-        [""        , ""        , ""    , ""        , ""    , "b_elb_sw", "b_hall_h", "b_hall_h", "b_hall_h", "b_elb_se", ""        , ""        , ""        , ""        ],
+        ["b_elb_nw", "b_n"    , "b_n"      , "b_n"     , "b_n"    , "b_hall_h", "b_tee_n" , "b_hall_h", "b_n"     , "b_n"     , "b_n"     , "b_n"     , "b_ne"    , ""        ],
+        ["b_elb_sw", "b_door_w", "c"       , "c"       , "c"      , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_ne_nub", "b_ne"    ],
+        [""        , "b_w"     , "c"       , "cpu_1_a" , "cpu_1_b", "cpu_1_c" , "c"       , "b_nw"    , "b_door_n", "b_ne"    , "c"       , "c"       , "c"       , "b_e"     ],
+        ["b_nw"    , "b_nw_nub", "c"       , "c"       , "c"      , "c"       , "c"       , "b_door_w", "c"       , "b_door_e", "c"       , "cpu_2_ct", "c"       , "b_hall_v"],
+        ["b_hall_v", "c"       , "c"       , "b_se_nub", "b_s"    , "b_sw_nub", "c"       , "b_sw"    , "b_door_s", "b_se"    , "c"       , "cpu_2_cb", "c"       , "b_tee_e" ],
+        ["b_tee_w" , "c"       , "c"       , "b_e"     , ""       , "b_w"     , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_hall_v"],
+        ["b_hall_v", "c"       , "cpu_2_at", "b_ne_nub", "b_n"    , "b_nw_nub", "cpu_2_bt", "b_se_nub", "b_door_s", "b_hall_h", "b_tee_s" , "b_hall_h", "b_hall_h", "b_elb_se"],
+        ["b_w"     , "c"       , "cpu_2_ab", "c"       , "c"      , "c"       , "cpu_2_bb", "b_e"     , "c"       , "c"       , "c"       , "c"       , "c"       , "b_e"     ],
+        ["b_sw"    , "b_sw_nub", "c"       , "c"       , "c"      , "c"       , "c"       , "b_door_e", "b_hall_h", "b_elb_ne", "c"       , "c"       , "b_se_nub", "b_se"    ],
+        [""        , "b_sw"    , "b_s"     , "b_s"     , "b_s"    , "b_door_s", "b_s"     , "b_se"    , ""        , "b_hall_v", "b_s"     , "b_s"     , "b_se"    , ""        ],
+        [""        , ""        , ""        , ""        , ""       , "b_hall_v", ""        , ""        , ""        , "b_hall_v", ""        , ""        , ""        , ""        ],
+        [""        , ""        , ""        , ""        , ""       , "b_elb_sw", "b_hall_h", "b_hall_h", "b_hall_h", "b_elb_se", ""        , ""        , ""        , ""        ],
         
         
     ]
@@ -271,12 +308,24 @@ window.onload = function() {
         blue_tee_n: [12, 0],
         blue_tee_s: [13, 1],
         blue_tee_e: [13, 0],
-        blue_tee_w: [12, 1]
+        blue_tee_w: [12, 1],
+        computer_single_a: [0, 3],
+        computer_single_b: [1, 3],
+        computer_single_c: [2, 3]
 	});
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
         player: [0, 0]
     });
+    
+    Crafty.sprite(32, "assets/img/sci-fi-obj-set-1.png", {
+        computer_double_a_top: [0, 1],
+        computer_double_a_bot: [0, 2],
+        computer_double_b_top: [1, 1],
+        computer_double_b_bot: [1, 2],
+        computer_double_c_top: [2, 1],
+        computer_double_c_bot: [2, 2]
+    })
     
     function generateGameMap() {
         for (var mx = 0; mx < game_map.map_size.width; mx++) {
@@ -291,6 +340,15 @@ window.onload = function() {
                     // the tile ID in the map translates to a tile definition in the tile set
                     var tile_data = game_map.tiles.tile_set[tile_id];
                     var tile_e = Crafty.e(tile_data.props).attr({x: mx * game_map.tiles.width, y: my * game_map.tiles.height});
+                    
+                    // do we have any more attribute data?
+                    if (typeof tile_data.attrs !== 'undefined') {
+                            
+                        // only thing we support so far is Z data
+                        if (typeof tile_data.attrs.z !== 'undefined') {
+                            tile_e.attr({z: tile_data.attrs.z})
+                        }
+                    }
                     
                     // apply any collision data
                     if (typeof tile_data.collision !== 'undefined') {

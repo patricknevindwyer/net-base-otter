@@ -28,9 +28,15 @@
   - [x] elbows
   - [x] tees
   - [x] interior rooms
- - [ ] computers (alternate sprite sheet)
+ - [ ] computers (alternate sprite sheet as well)
+  - [x] single height
+  - [x] double height
  - [ ] storage (alternate sprite sheet)
+  - [ ] single width
+  - [ ] double width
+  - [ ] closed/open
  - [ ] nes.css surround
+ - [ ] exit tiles
  - [ ] your computer stats
  - [ ] basic crypto miner app
  - [ ] interact with computers
