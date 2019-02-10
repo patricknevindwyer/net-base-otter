@@ -242,20 +242,37 @@ var game_map = {
             "cpu_2_cb": {
                 props: "2D, Canvas, solid, computer_double_c_bot, Collision" + opt_props
             },
-            
+            "disk_sc": {
+                props: "2D, Canvas, solid, disk_single_closed, Collision" + opt_props
+            },
+            "disk_so": {
+                props: "2D, Canvas, solid, disk_single_open, Collision" + opt_props
+            },
+            "disk_dlc": {
+                props: "2D, Canvas, solid, disk_double_closed_left, Collision" + opt_props
+            },
+            "disk_drc": {
+                props: "2D, Canvas, solid, disk_double_closed_right, Collision" + opt_props
+            },
+            "disk_dlo": {
+                props: "2D, Canvas, solid, disk_double_open_left, Collision" + opt_props
+            },
+            "disk_dro": {
+                props: "2D, Canvas, solid, disk_double_open_right, Collision" + opt_props
+            }
             
         }
     },
     map_size: {width: 14, height: 12},
     map: [
-        ["b_elb_nw", "b_n"    , "b_n"      , "b_n"     , "b_n"    , "b_hall_h", "b_tee_n" , "b_hall_h", "b_n"     , "b_n"     , "b_n"     , "b_n"     , "b_ne"    , ""        ],
+        ["b_elb_nw", "b_n"     , "disk_dlc", "disk_drc", "b_n"    , "b_hall_h", "b_tee_n" , "b_hall_h", "b_n"     , "disk_dlo", "disk_dro", "b_n"     , "b_ne"    , ""        ],
         ["b_elb_sw", "b_door_w", "c"       , "c"       , "c"      , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_ne_nub", "b_ne"    ],
         [""        , "b_w"     , "c"       , "cpu_1_a" , "cpu_1_b", "cpu_1_c" , "c"       , "b_nw"    , "b_door_n", "b_ne"    , "c"       , "c"       , "c"       , "b_e"     ],
         ["b_nw"    , "b_nw_nub", "c"       , "c"       , "c"      , "c"       , "c"       , "b_door_w", "c"       , "b_door_e", "c"       , "cpu_2_ct", "c"       , "b_hall_v"],
         ["b_hall_v", "c"       , "c"       , "b_se_nub", "b_s"    , "b_sw_nub", "c"       , "b_sw"    , "b_door_s", "b_se"    , "c"       , "cpu_2_cb", "c"       , "b_tee_e" ],
         ["b_tee_w" , "c"       , "c"       , "b_e"     , ""       , "b_w"     , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_hall_v"],
         ["b_hall_v", "c"       , "cpu_2_at", "b_ne_nub", "b_n"    , "b_nw_nub", "cpu_2_bt", "b_se_nub", "b_door_s", "b_hall_h", "b_tee_s" , "b_hall_h", "b_hall_h", "b_elb_se"],
-        ["b_w"     , "c"       , "cpu_2_ab", "c"       , "c"      , "c"       , "cpu_2_bb", "b_e"     , "c"       , "c"       , "c"       , "c"       , "c"       , "b_e"     ],
+        ["b_w"     , "c"       , "cpu_2_ab", "c"       , "c"      , "c"       , "cpu_2_bb", "b_e"     , "c"       , "c"       , "c"       , "disk_sc" , "disk_so" , "b_e"     ],
         ["b_sw"    , "b_sw_nub", "c"       , "c"       , "c"      , "c"       , "c"       , "b_door_e", "b_hall_h", "b_elb_ne", "c"       , "c"       , "b_se_nub", "b_se"    ],
         [""        , "b_sw"    , "b_s"     , "b_s"     , "b_s"    , "b_door_s", "b_s"     , "b_se"    , ""        , "b_hall_v", "b_s"     , "b_s"     , "b_se"    , ""        ],
         [""        , ""        , ""        , ""        , ""       , "b_hall_v", ""        , ""        , ""        , "b_hall_v", ""        , ""        , ""        , ""        ],
@@ -324,7 +341,13 @@ window.onload = function() {
         computer_double_b_top: [1, 1],
         computer_double_b_bot: [1, 2],
         computer_double_c_top: [2, 1],
-        computer_double_c_bot: [2, 2]
+        computer_double_c_bot: [2, 2],
+        disk_single_closed: [0, 0],
+        disk_single_open: [1, 0],
+        disk_double_closed_left: [3, 0],
+        disk_double_closed_right: [4, 0],
+        disk_double_open_left: [5, 0],
+        disk_double_open_right: [6, 0]
     })
     
     function generateGameMap() {
