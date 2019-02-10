@@ -213,9 +213,9 @@ var game_map = {
     map: [
         ["b_elb_nw", "b_n"    , "b_n" , "b_n"     , "b_n"  , "b_hall_h", "b_tee_n" , "b_hall_h", "b_n"     , "b_n"     , "b_n"     , "b_n"     , "b_ne"    , ""        ],
         ["b_elb_sw", "b_door_w", "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_ne_nub", "b_ne"    ],
-        [""        , "b_w"     , "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_e"     ],
-        ["b_nw"    , "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_hall_v"],
-        ["b_hall_v", "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_tee_e" ],
+        [""        , "b_w"     , "c"   , "c"       , "c"   , "c"       , "c"       , "b_nw"    , "b_door_n", "b_ne"    , "c"       , "c"       , "c"       , "b_e"     ],
+        ["b_nw"    , "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "b_door_w", "c"       , "b_door_e", "c"       , "c"       , "c"       , "b_hall_v"],
+        ["b_hall_v", "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"       , "b_sw"    , "b_door_s", "b_se"    , "c"       , "c"       , "c"       , "b_tee_e" ],
         ["b_tee_w" , "c"       , "c"   , "b_e"     , ""    , "b_w"     , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "c"       , "b_hall_v"],
         ["b_hall_v", "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"       , "b_se_nub", "b_door_s", "b_hall_h", "b_tee_s" , "b_hall_h", "b_hall_h", "b_elb_se"],
         ["b_w"     , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "b_e"     , "c"       , "c"       , "c"       , "c"       , "c"       , "b_e"     ],

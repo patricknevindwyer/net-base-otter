@@ -23,11 +23,11 @@
   - [x] s
   - [x] e
   - [x] w
- - [ ] expanded demo level
-  - [ ] all doors
-  - [ ] elbows
-  - [ ] tees
-  - [ ] interior rooms
+ - [x] expanded demo level
+  - [x] all doors
+  - [x] elbows
+  - [x] tees
+  - [x] interior rooms
  - [ ] computers (alternate sprite sheet)
  - [ ] storage (alternate sprite sheet)
  - [ ] nes.css surround
@@ -42,8 +42,8 @@
  - [ ] bots/moving entities
  - [ ] map swapping
  - [ ] tile loads/specs as part of the game_map structure
- - [ ] add collision boxes for elbow nubs
-
+ - [x] add collision boxes for elbow nubs
+ - [ ] collision boxes for doors?
 
 Player token
  - 7px border on left, 
