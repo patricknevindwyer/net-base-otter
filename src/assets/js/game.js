@@ -7,7 +7,13 @@ var game_map = {
         tile_set: {
             "b_nw": {
                 props: "2D, Canvas, solid, blue_wall_nw, Collision" + opt_props,
-                collision: [0, 0, 16, 0, 16, 16, 0, 16]
+                collision: [0, 0, 32, 0, 32, 6, 0, 6],
+                children: [
+                    {
+                        props: "2d, Canvas, Collision, solid" + opt_props,
+                        collision: [0, 6, 6, 6, 6, 32, 0, 32]
+                    }
+                ]
             },
             "b_n" : {
                 props: "2D, Canvas, solid, blue_wall_n, Collision" + opt_props,
@@ -15,7 +21,13 @@ var game_map = {
             },
             "b_ne": {
                 props: "2D, Canvas, solid, blue_wall_ne, Collision" + opt_props,
-                collision: [16, 0, 32, 0, 32, 16, 16, 16]
+                collision: [0, 0, 32, 0, 32, 6, 0, 6],
+                children: [
+                    {
+                        props: "2d, Canvas, Collision, solid" + opt_props,
+                        collision: [26, 6, 32, 6, 32, 32, 26, 32]
+                    }
+                ]
             },
             "b_w" : {
                 props: "2D, Canvas, solid, blue_wall_w, Collision" + opt_props,
@@ -28,7 +40,13 @@ var game_map = {
             },
             "b_sw": {
                 props: "2D, Canvas, solid, blue_wall_sw, Collision" + opt_props,
-                collision: [0, 16, 16, 16, 16, 32, 0, 32]
+                collision: [0, 0, 6, 0, 6, 32, 0, 32],
+                children: [
+                    {
+                        props: "2d, Canvas, Collision, solid" + opt_props,
+                        collision: [6, 26, 32, 26, 32, 32, 6, 32]
+                    }
+                ]
             },
             "b_s" : {
                 props: "2D, Canvas, solid, blue_wall_s, Collision" + opt_props,
@@ -36,7 +54,13 @@ var game_map = {
             },
             "b_se": {
                 props: "2D, Canvas, solid, blue_wall_se, Collision" + opt_props,
-                collision: [16, 16, 32, 16, 32, 32, 16, 32]
+                collision: [26, 0, 32, 0, 32, 32, 26, 32],
+                children: [
+                    {
+                        props: "2d, Canvas, Collision, solid" + opt_props,
+                        collision: [0, 26, 26, 26, 26, 32, 0, 32]
+                    }
+                ]
             },
             "b_nw_nub": {
                 props: "2D, Canvas, solid, blue_wall_nw_nub, Collision" + opt_props,

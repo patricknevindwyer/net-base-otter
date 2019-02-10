@@ -13,11 +13,11 @@
   - [x] ne
   - [x] sw
   - [x] se
- - [ ] compound hit boxes for corners
-  - [ ] nw
-  - [ ] ne
-  - [ ] sw
-  - [ ] se
+ - [x] compound hit boxes for corners
+  - [x] nw
+  - [x] ne
+  - [x] sw
+  - [x] se
  - [ ] hall tee
   - [ ] n
   - [ ] s
