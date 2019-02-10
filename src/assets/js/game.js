@@ -64,25 +64,44 @@ var game_map = {
                     }
                 ]
             },
-            "b_hall_h": {},
+            "b_hall_h": {
+                props: "2D, Canvas, solid, blue_hall_horz, Collision" + opt_props,
+                collision: [0, 0, 32, 0, 32, 6, 0, 6],
+                children: [
+                    {
+                        collision: [0, 26, 32, 26, 32, 32, 0, 32],
+                        props: "2d, Canvas, Collision, solid" + opt_props
+                    }
+                ]                
+            },
             "b_door_s": {
                 props: "2D, Canvas, blue_door_s" + opt_props,                
+            },
+            "b_door_n": {
+                props: "2D, Canvas, blue_door_n" + opt_props,                
+            },
+            "b_door_w": {
+                props: "2D, Canvas, blue_door_w" + opt_props,                
+            },
+            "b_door_e": {
+                props: "2D, Canvas, blue_door_e" + opt_props,                
             }
         }
     },
-    map_size: {width: 14, height: 11},
+    map_size: {width: 14, height: 12},
     map: [
-        [""    , "b_nw"    , "b_n" , "b_n"     , "b_n" , "b_n"     , "b_n" , "b_n" , "b_n" , "b_n" , "b_n" , "b_n" , "b_ne"    , ""     ],
-        ["b_nw", "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "b_ne_nub", "b_ne" ],
-        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "b_e"     , ""    , "b_w"     , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
-        ["b_sw", "b_sw_nub", "c"   , "c"       , "c"   , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"   , "b_se_nub", "b_se" ],
-        [""    , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_door_s", "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_se"    , ""     ],
-        [""    , ""        , ""    , ""        , ""    , "b_hall_v", ""    , ""    , ""    , ""    , ""    , ""    , ""        , ""     ],
+        [""    , "b_nw"    , "b_n" , "b_n"     , "b_n" , "b_n"     , "b_n"     , "b_n" , "b_n" , "b_n" , "b_n" , "b_n" , "b_ne"    , ""     ],
+        ["b_nw", "b_nw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "b_ne_nub", "b_ne" ],
+        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w" , "c"       , "c"   , "b_se_nub", "b_s" , "b_sw_nub", "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w" , "c"       , "c"   , "b_e"     , ""    , "b_w"     , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w" , "c"       , "c"   , "b_ne_nub", "b_n" , "b_nw_nub", "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_w" , "c"       , "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "c"       , "b_e"  ],
+        ["b_sw", "b_sw_nub", "c"   , "c"       , "c"   , "c"       , "c"       , "c"   , "c"   , "c"   , "c"   , "c"   , "b_se_nub", "b_se" ],
+        [""    , "b_sw"    , "b_s" , "b_s"     , "b_s" , "b_door_s", "b_s"     , "b_s" , "b_s" , "b_s" , "b_s" , "b_s" , "b_se"    , ""     ],
+        [""    , ""        , ""    , ""        , ""    , "b_hall_v", ""        , ""    , ""    , ""    , ""    , ""    , ""        , ""     ],
+        [""    , ""        , ""    , ""        , ""    , ""        , "b_hall_h", ""    , ""    , ""    , ""    , ""    , ""        , ""     ],
         
         
     ]
@@ -105,7 +124,6 @@ window.onload = function() {
 		flower: [0,1],
 		bush1: [6,0],
 		bush2: [6,0],
-        // player: [2,5],
         blue_wall_nw: [5, 0],
         blue_wall_n: [6, 0],
         blue_wall_ne: [7, 0],
@@ -121,7 +139,10 @@ window.onload = function() {
         floor_tile: [6, 1],
         blue_hall_vert: [4, 1],
         blue_hall_horz: [4, 2],
-        blue_door_s: [8, 2]
+        blue_door_s: [8, 2],
+        blue_door_n: [10, 2],
+        blue_door_w: [9, 2],
+        blue_door_e: [11, 2]
 	});
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
@@ -217,10 +238,11 @@ window.onload = function() {
 			init: function() {
 					//setup animations
 					this.requires("SpriteAnimation, Collision")
-					.reel("walk_left", 0, 3, 3)
-					.reel("walk_right", 0, 3, 3)
-					.reel("walk_up", 0, 3, 3)
-					.reel("walk_down", 0, 3, 3)
+					// .reel("player", 20, 0, 0, 5)
+                    // .reel("walk_right", 0, 3, 3)
+                    // .reel("walk_up", 0, 3, 3)
+                    // .reel("walk_down", 0, 3, 3)
+                    // .animate("player", -1)
 					//change direction when a direction change event is received
 					.bind("NewDirection",
 						function (direction) {
@@ -240,9 +262,9 @@ window.onload = function() {
                                 // if (!this.isPlaying("walk_down"))
                                     // this.pauseAnimation().animate("walk_down", 20, -1);
 							}
-							if(!direction.x && !direction.y) {
-								this.pauseAnimation();
-							}
+                            // if(!direction.x && !direction.y) {
+                            //     this.pauseAnimation();
+                            // }
 					})
 					// A rudimentary way to prevent the user from passing solid areas
 					.bind('Move', function(from) {
@@ -287,11 +309,10 @@ window.onload = function() {
 		});
 		
 		//create our player entity with some premade components
-		player = Crafty.e("2D, Canvas, player, RightControls, Hero, Animate, Collision")
+		player = Crafty.e("2D, Canvas, player, RightControls, Hero, SpriteAnimation, Animate, Collision")
 			.attr({x: 192, y: 128, z: 20})
-            // .collision([0, 0, 32, 0, 32, 32, 0, 32])
-            // .collision([7, 7, 24, 7, 24, 24, 7, 24])
-            // .collision([0, 0, 17, 0, 17, 17, 0, 17])
+			.reel("PlayerWalking", 1000, 0, 0, 5)
+            .animate("PlayerWalking", -1)
             .collision([0, 0, 16, 0, 16, 16, 0, 16])
 			.rightControls(200);
 	});

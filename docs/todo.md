@@ -1,8 +1,28 @@
  - [x] hallways
  - [ ] New avatar
   - [x] smaller hit box
-  - [ ] animated
- - [ ] doors/exits
+  - [x] animated
+ - [x] doors/exits
+  - [x] s
+  - [x] n
+  - [x] e
+  - [x] w
+  - [x] hall horizontal
+ - [ ] elbox hallways
+  - [ ] nw
+  - [ ] ne
+  - [ ] sw
+  - [ ] se
+ - [ ] hall tee
+  - [ ] n
+  - [ ] s
+  - [ ] e
+  - [ ] w
+ - [ ] expanded demo level
+  - [ ] all doors
+  - [ ] elbows
+  - [ ] tees
+  - [ ] interior rooms
  - [ ] computers (alternate sprite sheet)
  - [ ] storage (alternate sprite sheet)
  - [ ] nes.css surround
