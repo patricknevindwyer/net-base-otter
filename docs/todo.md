@@ -35,7 +35,7 @@
   - [x] single width
   - [x] double width
   - [x] closed/open
- - [ ] nes.css surround
+ - [x] nes.css surround
  - [ ] entry point
   - [ ] tile
   - [ ] positioning of player

@@ -287,7 +287,8 @@ window.onload = function() {
     
 	//start crafty
     // Crafty.init(416, 380);
-    Crafty.init(game_map.view.width, game_map.view.height);
+    // Crafty.init(game_map.view.width, game_map.view.height, "canvas-console");
+    Crafty.init(document.getElementById("canvas-console-container").offsetWidth - 8, game_map.view.height, "canvas-console")
 //	Crafty.canvas.init();
 	
 	//turn the sprite map into usable components
