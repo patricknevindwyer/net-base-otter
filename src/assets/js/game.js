@@ -1,55 +1,57 @@
+var opt_props = ""; //", SolidHitBox";
+
 var game_map = {
     view: {width: 500, height: 400},
     tiles: {
         width: 32, height: 32,
         tile_set: {
             "b_nw": {
-                props: "2D, Canvas, solid, blue_wall_nw, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_nw, Collision" + opt_props,
                 collision: [0, 0, 16, 0, 16, 16, 0, 16]
             },
             "b_n" : {
-                props: "2D, Canvas, solid, blue_wall_n, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_n, Collision" + opt_props,
                 collision: [0, 0, 32, 0, 32, 6, 0, 6]
             },
             "b_ne": {
-                props: "2D, Canvas, solid, blue_wall_ne, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_ne, Collision" + opt_props,
                 collision: [16, 0, 32, 0, 32, 16, 16, 16]
             },
             "b_w" : {
-                props: "2D, Canvas, solid, blue_wall_w, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_w, Collision" + opt_props,
                 collision: [0, 0, 6, 0, 6, 32, 0, 32]
             },
             "c"   : {props: "2D, Canvas, floor_tile"},
             "b_e" : {
-                props: "2D, Canvas, solid, blue_wall_e, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_e, Collision" + opt_props,
                 collision: [26, 0, 32, 0, 32, 32, 26, 32]
             },
             "b_sw": {
-                props: "2D, Canvas, solid, blue_wall_sw, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_sw, Collision" + opt_props,
                 collision: [0, 16, 16, 16, 16, 32, 0, 32]
             },
             "b_s" : {
-                props: "2D, Canvas, solid, blue_wall_s, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_s, Collision" + opt_props,
                 collision: [0, 26, 32, 26, 32, 32, 0, 32]
             },
             "b_se": {
-                props: "2D, Canvas, solid, blue_wall_se, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_se, Collision" + opt_props,
                 collision: [16, 16, 32, 16, 32, 32, 16, 32]
             },
             "b_nw_nub": {
-                props: "2D, Canvas, solid, blue_wall_nw_nub, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_nw_nub, Collision" + opt_props,
                 collision: [0, 0, 6, 0, 6, 6, 0, 6]
             },
             "b_ne_nub": {
-                props: "2D, Canvas, solid, blue_wall_ne_nub, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_ne_nub, Collision" + opt_props,
                 collision: [26, 0, 32, 0, 32, 6, 26, 6]
             },
             "b_sw_nub": {
-                props: "2D, Canvas, solid, blue_wall_sw_nub, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_sw_nub, Collision" + opt_props,
                 collision: [0, 26, 6, 26, 6, 32, 0, 32]
             },
             "b_se_nub": {
-                props: "2D, Canvas, solid, blue_wall_se_nub, Collision, SolidHitBox",
+                props: "2D, Canvas, solid, blue_wall_se_nub, Collision" + opt_props,
                 collision: [26, 26, 32, 26, 32, 32, 26, 32]
             }
         }
