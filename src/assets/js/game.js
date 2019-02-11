@@ -1,5 +1,108 @@
 var opt_props = ""; //", SolidHitBox";
 
+// var player
+
+var game_state = {
+    
+    // Player model
+    player: {
+        credits: 0
+    },
+    computer: {
+        model: "Seerlight 300",
+        cpu: {
+            max: 100,
+            current: 0
+        },
+        storage: {
+            max: 100,
+            current: 0
+        },
+        programs: [
+            {
+                name: "CryptoMine Beta v0.1",
+                type: "cryptominer",
+                stealth: 1,
+                efficiency: 0.25,
+                cost: {
+                    cpu: 25,
+                    storage: 50
+                }
+            }
+        ]
+    }
+}
+
+// Update the state of the player computer
+function syncComputer() {
+    
+    // check the program list, and build up the computer stats
+    var cpu_total = 0;
+    var str_total = 0;
+    
+    game_state.computer.programs.forEach(
+        function (program) {
+            cpu_total += program.cost.cpu;
+            str_total += program.cost.storage;
+        }
+    );
+    
+    game_state.computer.cpu.current = cpu_total;
+    game_state.computer.storage.current = str_total;
+}
+
+function updateComputerDisplay() {
+    
+    // update the progress bars for total usage
+    cpu_perc = game_state.computer.cpu.current / game_state.computer.cpu.max * 100.0;
+    str_perc = game_state.computer.storage.current / game_state.computer.storage.max * 100.0;
+    
+    document.getElementById("cpu-usage").value = "" + Math.trunc(cpu_perc);
+    document.getElementById("storage-usage").value = "" + Math.trunc(str_perc);
+    
+    // check the display of computer programs
+}
+
+function updateGameState() {
+    
+    syncComputer();
+    updateComputerDisplay();
+    clearProgramTable();
+    fillProgramTable();
+    
+}
+
+function clearProgramTable() {
+
+    var rows = document.getElementById("program-table").rows;
+    var table = document.getElementById("program-table");
+    for (var r_idx = rows.length - 1; r_idx > 0; r_idx--) {
+        table.deleteRow(r_idx);
+    }
+    
+}
+
+function fillProgramTable() {
+    
+    var table = document.getElementById("program-table");
+    
+    game_state.computer.programs.forEach(
+        function (program) {
+            var row = table.insertRow(1);
+            var c_name = row.insertCell(0);
+            var c_cpu = row.insertCell(1);
+            var c_str = row.insertCell(2);
+            
+            c_name.innerHTML = program.name;
+            c_cpu.innerHTML = program.cost.cpu;
+            c_str.innerHTML = program.cost.storage;
+        }
+    );
+}
+
+setTimeout(updateGameState, 500);
+
+// Game Map
 var game_map = {
     view: {width: 500, height: 400},
     tiles: {

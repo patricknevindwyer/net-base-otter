@@ -44,7 +44,15 @@
   - [ ] w
   - [ ] s
   - [ ] n
- - [ ] your computer stats
+ - [x] your computer stats
+  - [x] layout
+  - [x] css
+  - [ ] javascript modeling
+   - [x] cpu
+   - [x] storage
+   - [x] program list
+   - [x] player model
+    - [x] credits
  - [ ] basic crypto miner app
  - [ ] interact with computers
  - [ ] doors? 
@@ -61,3 +69,4 @@
  - [ ] home base generator
  - [ ] teleport to home
  - [ ] network map to select destination
+ - [ ] elbow corner collision map for nubs
