@@ -47,12 +47,20 @@
  - [x] your computer stats
   - [x] layout
   - [x] css
-  - [ ] javascript modeling
+  - [x] javascript modeling
    - [x] cpu
    - [x] storage
    - [x] program list
    - [x] player model
     - [x] credits
+ - [ ] interaction indicator
+  - [ ] make 2 sprite map/reel
+   - [ ] interesting interaction
+   - [ ] uninteresting interaction
+  - [ ] make a component
+   - [ ] check "interesting" vs "uninteresting" when starting component
+  - [ ] create/destroy when interacting with environment
+  
  - [ ] basic crypto miner app
  - [ ] interact with computers
  - [ ] doors? 

@@ -33,6 +33,57 @@ var game_state = {
     }
 }
 
+function pointToTile(x, y) {
+    
+    return {x: Math.floor(x / 32), y: Math.floor(y / 32) };
+    
+}
+
+function tileAtHeading(x, y, heading) {
+    
+    var y_alt = 0;
+    var x_alt = 0;
+    
+    if (heading.indexOf("N") > -1) {
+        y_alt = -1;
+    }
+    
+    if (heading.indexOf("S") > -1) {
+        y_alt = 1;
+    }
+    
+    if (heading.indexOf("W") > -1) {
+        x_alt = -1;
+    }
+    
+    if (heading.indexOf("E") > -1) {
+        x_alt = 1;
+    }
+    
+    return {x: x + x_alt, y: y + y_alt};
+}
+
+function hasTileAt(x, y) {
+    if ((x < 0) || (y < 0)) {
+        return false;
+    }
+    
+    if (x >= game_map.map_size.width) {
+        return false;
+    }
+    
+    if (y >= game_map.map_size.height) {
+        return false;
+    }
+    
+    return true;
+}
+
+function tileIdAt(x, y) {
+    tile_id = game_map.map[y][x];
+    return tile_id;
+}
+
 // Update the state of the player computer
 function syncComputer() {
     
@@ -160,7 +211,7 @@ var game_map = {
                 collision: [26, 0, 32, 0, 32, 32, 26, 32],
                 children: [
                     {
-                        props: "2d, Canvas, Collision, solid" + opt_props,
+                        props: "2D, Canvas, Collision, solid" + opt_props,
                         collision: [0, 26, 26, 26, 26, 32, 0, 32]
                     }
                 ]
@@ -452,7 +503,8 @@ window.onload = function() {
         computer_single_b: [1, 3],
         computer_single_c: [2, 3],
         teleport: [6, 4],
-        blue_exit_east: [1, 1]
+        blue_exit_east: [1, 1],
+        interact_token: [2, 0]
 	});
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
@@ -570,30 +622,36 @@ window.onload = function() {
 		
 		Crafty.c('Hero', {
 			init: function() {
-					//setup animations
-					this.requires("SpriteAnimation, Collision")
-					//change direction when a direction change event is received
-					.bind("NewDirection",
+                //setup animations
+                this.requires("SpriteAnimation, Collision");
+                
+                // set the character facing
+                this.facing = "";
+                
+				//change direction when a direction change event is received
+                this.bind("NewDirection",
 						function (direction) {
-							if (direction.x < 0) {
-                                // if (!this.isPlaying("walk_left"))
-                                    // this.pauseAnimation().animate("walk_left", 20, -1);
-							}
-							if (direction.x > 0) {
-                                // if (!this.isPlaying("walk_right"))
-                                    // this.pauseAnimation().animate("walk_right", 20, -1);
-							}
-							if (direction.y < 0) {
-                                // if (!this.isPlaying("walk_up"))
-                                    // this.pauseAnimation().animate("walk_up", 20, -1);
-							}
-							if (direction.y > 0) {
-                                // if (!this.isPlaying("walk_down"))
-                                    // this.pauseAnimation().animate("walk_down", 20, -1);
-							}
-                            // if(!direction.x && !direction.y) {
-                            //     this.pauseAnimation();
-                            // }
+
+                            if(!direction.x && !direction.y) {
+                                // no directional change
+                            }
+                            else {
+                            
+                                this.facing = "";
+                            
+    							if (direction.y < 0) {
+                                    this.facing += "N";
+    							}
+    							if (direction.y > 0) {
+                                    this.facing += "S";
+    							}
+    							if (direction.x < 0) {
+                                    this.facing += "W";
+    							}
+    							if (direction.x > 0) {
+                                    this.facing += "E"
+    							}
+                            }
 					})
 					// A rudimentary way to prevent the user from passing solid areas
 					.bind('Move', function(from) {
@@ -636,9 +694,38 @@ window.onload = function() {
 			}
 
 		});
+        
+        Crafty.c("PlayerInteractions", {
+            init: function() {
+                
+                this.requires("Keyboard");
+                
+                this.bind('KeyDown', function (e) {
+                    
+                    if (e.key == Crafty.keys.SPACE) {
+                        
+                        // try and interact with an item
+                        console.log("facing: " + this.facing);
+                        console.log("  x(" + this.x + ") - y(" + this.y + ")");
+                        
+                        var tileLoc = pointToTile(this.x, this.y);
+                        var headingLoc = tileAtHeading(tileLoc.x, tileLoc.y, this.facing);
+                        
+                        if (hasTileAt(headingLoc.x, headingLoc.y)) {
+                            var tileId = tileIdAt(headingLoc.x, headingLoc.y);
+                            console.log("interact with tile_id(" + tileId + ")");
+                            
+                            var tile_e = Crafty.e("2D, Canvas, interact_token").attr({x: headingLoc.x * game_map.tiles.width, y: headingLoc.y * game_map.tiles.height});
+                            setTimeout(function() {tile_e.destroy()}, 500);
+                        }
+                        
+                    }
+                })
+            }
+        })
 		
 		//create our player entity with some premade components
-		player = Crafty.e("2D, Canvas, player, RightControls, Hero, SpriteAnimation, Animate, Collision")
+		player = Crafty.e("2D, Canvas, player, RightControls, Hero, SpriteAnimation, Animate, Collision, Keyboard, PlayerInteractions")
             .attr({x: game_map.teleport.x * 32 + 8, y: game_map.teleport.y * 32 + 8, z:20})
             // .attr({x: 192, y: 128, z: 20})
 			.reel("PlayerWalking", 1000, 0, 0, 5)
