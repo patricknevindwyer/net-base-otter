@@ -503,12 +503,12 @@ window.onload = function() {
         computer_single_b: [1, 3],
         computer_single_c: [2, 3],
         teleport: [6, 4],
-        blue_exit_east: [1, 1],
-        interact_token: [2, 0]
+        blue_exit_east: [1, 1]
 	});
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
-        player: [0, 0]
+        player: [0, 0],
+        interact_interesting: [0, 0]
     });
     
     Crafty.sprite(32, "assets/img/sci-fi-obj-set-1.png", {
@@ -715,7 +715,10 @@ window.onload = function() {
                             var tileId = tileIdAt(headingLoc.x, headingLoc.y);
                             console.log("interact with tile_id(" + tileId + ")");
                             
-                            var tile_e = Crafty.e("2D, Canvas, interact_token").attr({x: headingLoc.x * game_map.tiles.width, y: headingLoc.y * game_map.tiles.height});
+                            var tile_e = Crafty.e("2D, Canvas, interact_interesting, SpriteAnimation")
+                            .reel("InteractInteresting", 250, 0, 1, 5)
+                            .animate("InteractInteresting", -1)
+                            .attr({x: headingLoc.x * game_map.tiles.width + 8, y: headingLoc.y * game_map.tiles.height + 8});
                             setTimeout(function() {tile_e.destroy()}, 500);
                         }
                         
