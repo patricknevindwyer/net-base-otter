@@ -434,6 +434,20 @@ var game_map = {
             
         }
     },
+    interactions: {
+        cpu_1_a: {interesting: true},
+        cpu_1_b: {interesting: true},
+        cpu_1_c: {interesting: true},
+        cpu_2_ab: {interesting: true},
+        cpu_2_bb: {interesting: true},
+        cpu_2_cb: {interesting: true},
+        disk_sc: {interesting: true},
+        disk_so: {interesting: true},
+        disk_dlc: {interesting: true},
+        disk_drc: {interesting: true},
+        disk_dlo: {interesting: true},
+        disk_dro: {interesting: true}
+    },
     map_size: {width: 15, height: 12},
     teleport: {
         x: 8, y: 3
@@ -452,6 +466,10 @@ var game_map = {
         [""        , ""        , ""        , ""        , ""       , "b_hall_v", ""        , ""        , ""        , "b_hall_v", ""        , ""        , ""        , ""        , ""        ],
         [""        , ""        , ""        , ""        , ""       , "b_elb_sw", "b_hall_h", "b_hall_h", "b_hall_h", "b_elb_se", ""        , ""        , ""        , ""        , ""        ],
     ]
+}
+
+function _has(obj, attr) {
+    return typeof obj[attr] !== 'undefined';
 }
 
 window.onload = function() {
@@ -508,7 +526,8 @@ window.onload = function() {
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
         player: [0, 0],
-        interact_interesting: [0, 0]
+        interact_interesting: [0, 1],
+        interact_uninteresting: [0, 2]
     });
     
     Crafty.sprite(32, "assets/img/sci-fi-obj-set-1.png", {
@@ -631,9 +650,11 @@ window.onload = function() {
 				//change direction when a direction change event is received
                 this.bind("NewDirection",
 						function (direction) {
-
+                            
+                            // track our orientation in NSEW and NW/NE/SW/SE directions, which
+                            // we'll use later when interacting with objects
                             if(!direction.x && !direction.y) {
-                                // no directional change
+                                // no directional change, but don't zero out our facing
                             }
                             else {
                             
@@ -713,10 +734,20 @@ window.onload = function() {
                         
                         if (hasTileAt(headingLoc.x, headingLoc.y)) {
                             var tileId = tileIdAt(headingLoc.x, headingLoc.y);
-                            console.log("interact with tile_id(" + tileId + ")");
                             
-                            var tile_e = Crafty.e("2D, Canvas, interact_interesting, SpriteAnimation")
-                            .reel("InteractInteresting", 250, 0, 1, 5)
+                            // are we interacting with an interesting, or uninteresting item?
+                            var interact_type = "interact_uninteresting";
+                            var sprite_sheet_y = 2;
+                            if (_has(game_map.interactions, tileId)) {
+                                if (game_map.interactions[tileId].interesting) {
+                                    interact_type = "interact_interesting";
+                                    sprite_sheet_y = 1;
+                                }
+                            }
+                            
+                            // display our interaction sprite for half a second
+                            var tile_e = Crafty.e("2D, Canvas, SpriteAnimation, " + interact_type)
+                            .reel("InteractInteresting", 250, 0, sprite_sheet_y, 5)
                             .animate("InteractInteresting", -1)
                             .attr({x: headingLoc.x * game_map.tiles.width + 8, y: headingLoc.y * game_map.tiles.height + 8});
                             setTimeout(function() {tile_e.destroy()}, 500);
