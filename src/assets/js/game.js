@@ -430,8 +430,49 @@ var game_map = {
                         collision: [0, 26, 26, 26, 26, 32, 0, 32]
                     }
                 ]
+            },
+            "b_exit_s": {
+                props: "2D, Canvas, exit, solid, blue_exit_south, Collision" + opt_props,
+                collision: [0, 26, 32, 26, 32, 32, 0, 32],
+                children: [
+                    {
+                        props: "2D, Canvas, Collision, solid" + opt_props,
+                        collision: [0, 0, 6, 0, 6, 26, 0, 26]
+                    },
+                    {
+                        props: "2D, Canvas, Collision, solid" + opt_props,
+                        collision: [26, 0, 32, 0, 32, 26, 26, 26]
+                    }
+                ]
+            },
+            "b_exit_n": {
+                props: "2D, Canvas, exit, solid, blue_exit_north, Collision" + opt_props,
+                collision: [0, 0, 32, 0, 32, 6, 0, 6],
+                children: [
+                    {
+                        props: "2D, Canvas, Collision, solid" + opt_props,
+                        collision: [0, 6, 6, 6, 6, 32, 0, 32]
+                    },
+                    {
+                        props: "2D, Canvas, Collision, solid" + opt_props,
+                        collision: [26, 6, 32, 6, 32, 32, 26, 32]
+                    }
+                ]
+            },
+            "b_exit_w": {
+                props: "2D, Canvas, exit, solid, blue_exit_west, Collision" + opt_props,
+                collision: [0, 0, 6, 0, 6, 32, 0, 32],
+                children: [
+                    {
+                        props: "2D, Canvas, Collision, solid" + opt_props,
+                        collision: [6, 0, 32, 0, 32, 6, 6, 6]
+                    },
+                    {
+                        props: "2D, Canvas, Collision, solid" + opt_props,
+                        collision: [6, 26, 32, 26, 32, 32, 6, 32]
+                    }
+                ]                
             }
-            
         }
     },
     interactions: {
@@ -462,9 +503,9 @@ var game_map = {
         ["b_hall_v", "c"       , "cpu_2_at", "b_ne_nub", "b_n"    , "b_nw_nub", "cpu_2_bt", "b_se_nub", "b_door_s", "b_hall_h", "b_tee_s" , "b_hall_h", "b_hall_h", "b_elb_se", ""        ],
         ["b_w"     , "c"       , "cpu_2_ab", "c"       , "c"      , "c"       , "cpu_2_bb", "b_e"     , "c"       , "c"       , "c"       , "disk_sc" , "disk_so" , "b_e"     , ""        ],
         ["b_sw"    , "b_sw_nub", "c"       , "c"       , "c"      , "c"       , "c"       , "b_door_e", "b_hall_h", "b_elb_ne", "c"       , "c"       , "b_se_nub", "b_se"    , ""        ],
-        [""        , "b_sw"    , "b_s"     , "b_s"     , "b_s"    , "b_door_s", "b_s"     , "b_se"    , ""        , "b_hall_v", "b_s"     , "b_s"     , "b_se"    , ""        , ""        ],
-        [""        , ""        , ""        , ""        , ""       , "b_hall_v", ""        , ""        , ""        , "b_hall_v", ""        , ""        , ""        , ""        , ""        ],
-        [""        , ""        , ""        , ""        , ""       , "b_elb_sw", "b_hall_h", "b_hall_h", "b_hall_h", "b_elb_se", ""        , ""        , ""        , ""        , ""        ],
+        [""        , "b_sw"    , "b_door_s", "b_s"     , "b_s"    , "b_door_s", "b_s"     , "b_se"    , ""        , "b_hall_v", "b_s"     , "b_door_s", "b_se"    , ""        , ""        ],
+        [""        , ""        , "b_exit_s", ""        , ""       , "b_hall_v", ""        , "b_exit_n", ""        , "b_hall_v", ""        , "b_hall_v", ""        , ""        , ""        ],
+        [""        , ""        , ""        , ""        , ""       , "b_elb_sw", "b_hall_h", "b_tee_s" , "b_hall_h", "b_elb_se", "b_exit_w", "b_elb_se", ""        , ""        , ""        ],
     ]
 }
 
@@ -521,7 +562,10 @@ window.onload = function() {
         computer_single_b: [1, 3],
         computer_single_c: [2, 3],
         teleport: [6, 4],
-        blue_exit_east: [1, 1]
+        blue_exit_east: [1, 1],
+        blue_exit_south: [1, 0],
+        blue_exit_north: [0, 0],
+        blue_exit_west: [0, 1]
 	});
 	
     Crafty.sprite(16, "assets/img/avatar_16x16.png", {
@@ -726,9 +770,6 @@ window.onload = function() {
                     if (e.key == Crafty.keys.SPACE) {
                         
                         // try and interact with an item
-                        console.log("facing: " + this.facing);
-                        console.log("  x(" + this.x + ") - y(" + this.y + ")");
-                        
                         var tileLoc = pointToTile(this.x, this.y);
                         var headingLoc = tileAtHeading(tileLoc.x, tileLoc.y, this.facing);
                         

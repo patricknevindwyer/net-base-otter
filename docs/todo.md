@@ -39,11 +39,11 @@
  - [x] entry point
   - [x] tile
   - [x] positioning of player
- - [ ] exit tiles
+ - [x] exit tiles
   - [x] e
-  - [ ] w
-  - [ ] s
-  - [ ] n
+  - [x] w
+  - [x] s
+  - [x] n
  - [x] your computer stats
   - [x] layout
   - [x] css
@@ -53,21 +53,25 @@
    - [x] program list
    - [x] player model
     - [x] credits
- - [ ] interaction indicator
-  - [ ] make 2 sprite map/reel
-   - [ ] interesting interaction
-   - [ ] uninteresting interaction
-  - [ ] make a component
-   - [ ] check "interesting" vs "uninteresting" when starting component
-  - [ ] create/destroy when interacting with environment
+ - [x] interaction indicator
+  - [x] make 2 sprite map/reel
+   - [x] interesting interaction
+   - [x] uninteresting interaction
+  - [x] make a component
+   - [x] check "interesting" vs "uninteresting" when starting component
+  - [x] create/destroy when interacting with environment
   
  - [ ] basic crypto miner app
  - [ ] interact with computers
- - [ ] doors? 
-  - activate/interact with doors
+  - [ ] model of items in map
+   - [ ] type
+   - [ ] effect
+  - [ ] UI/modal for interaction with computer
  - [ ] install miner
  - [ ] time tick/earning
  - [ ] computer/storage/tile animation
+ - [ ] doors? 
+  - activate/interact with doors
  - [ ] bots/moving entities
  - [ ] map swapping
  - [ ] tile loads/specs as part of the game_map structure
