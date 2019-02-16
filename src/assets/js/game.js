@@ -10,7 +10,7 @@ class Menu {
         this.offset_x = offset_x;
         this.offset_y = offset_y;
         this.item_offset_x = this.offset_x + 15;
-        this.item_offset_y = this.offset_x + 10;
+        this.item_offset_y = this.offset_y + 20;
         this.item_font_size = 16;
         this.item_line_height = this.item_font_size + 4;
         
@@ -28,7 +28,12 @@ class Menu {
         return this.is_active;
     }
 
-    open(width, height) {
+    open(props) {
+        
+        this.width = props.width;
+        this.height = props.height;
+        this.menu_items = props.items;
+        var title_text = props.title;
         
         // track our menu state so we don't stack up a whole bunch of menu sprits
         if (this.is_active) {
@@ -43,9 +48,9 @@ class Menu {
         // disable the player sprite from receiving controls
         window.game_state.player.sprite.disableControl();
         
-        // draw the menu
-        for (var mx = 0; mx < width; mx++) {
-            for (var my = 0; my < height; my++) {
+        // draw the menu outline
+        for (var mx = 0; mx < this.width; mx++) {
+            for (var my = 0; my < this.height; my++) {
             
                 var props = "2D, Canvas";
             
@@ -53,13 +58,13 @@ class Menu {
                 if (mx == 0 && my == 0) {
                     props += ", menu_nw";
                 }
-                else if (mx == 0 && my == (height - 1)) {
+                else if (mx == 0 && my == (this.height - 1)) {
                     props += ", menu_sw";
                 }
-                else if (mx == (width - 1) && my == 0) {
+                else if (mx == (this.width - 1) && my == 0) {
                     props += ", menu_ne";
                 }
-                else if (mx == (width - 1) && my == (height - 1)) {
+                else if (mx == (this.width - 1) && my == (this.height - 1)) {
                     props += ", menu_se";
                 }
             
@@ -69,7 +74,7 @@ class Menu {
                 }
             
                 // bottom
-                else if (my == (height - 1)) {
+                else if (my == (this.height - 1)) {
                     props += ", menu_s";
                 }
             
@@ -79,7 +84,7 @@ class Menu {
                 }
             
                 // right
-                else if (mx == (width - 1)) {
+                else if (mx == (this.width - 1)) {
                     props += ", menu_e";
                 }
             
@@ -92,7 +97,36 @@ class Menu {
                 this.game_menu_sprites.push(menu_tile);
             }
         }
+        
+        // draw the menu title
+        var title_offset_x = 16;
+        var title_offset_y_top = -24;
+        var title_offset_y_bot = -16;
+        var title_width = this.width - 3;
+        
+        for (var t_x = 0; t_x < title_width; t_x++) {
             
+            var tile_top = "menu_n";
+            var tile_bot = "menu_s";
+            
+            if (t_x == 0) {
+                tile_top = "menu_nw";
+                tile_bot = "menu_sw";
+            }
+            else if (t_x == title_width - 1) {
+                tile_top = "menu_ne";
+                tile_bot = "menu_se";
+            }
+            
+            var title_t = Crafty.e("2D, Canvas, " + tile_top).attr({x: this.offset_x + title_offset_x + t_x * 32, y: this.offset_y + title_offset_y_top, z: 100000});
+            this.game_menu_sprites.push(title_t);
+        
+            var title_b = Crafty.e("2D, Canvas, " + tile_bot).attr({x: this.offset_x + title_offset_x + t_x * 32, y: this.offset_y + title_offset_y_bot, z: 100000});
+            this.game_menu_sprites.push(title_b);
+            
+        }
+        
+        // render the menu item text
         for (var menu_idx = 0; menu_idx < this.menu_items.length; menu_idx++) {
             var menu_text = Crafty.e("2D, DOM, Text")
                 .attr({x: this.item_offset_x, y: this.item_offset_y + menu_idx * this.item_line_height, w: 32 * 8})
@@ -101,6 +135,12 @@ class Menu {
             this.game_menu_item_sprites.push(menu_text);
         }
     
+        // render the title text
+        this.title_sprite = Crafty.e("2D, DOM, Text")
+            .attr({x: this.offset_x + title_offset_x + 12, y: this.offset_y + title_offset_y_bot + 2, w: 32 * (title_width - 1)})
+            .textFont({type: "Press Start 2P", size: this.item_font_size + "px"})
+            .text(title_text)
+        
         this.highlightSelected();
     }
     
@@ -140,12 +180,18 @@ class Menu {
         this.game_menu_item_sprites.forEach(function(s) {
             s.css("display", "none");
         });
+        
+        this.title_sprite.css("display", "none");
+        
     }
     
     focus() {
         this.game_menu_item_sprites.forEach(function(s) {
             s.css("display", "block");
         });        
+        
+        this.title_sprite.css("display", "block");
+        
     }
     
     close() {
@@ -160,6 +206,8 @@ class Menu {
             item_tile.destroy();
         });
         this.game_menu_item_sprites = [];
+        
+        this.title_sprite.destroy();
         
         this.is_active = false;
         
@@ -176,7 +224,7 @@ class MenuManager {
         this.menus = [];
         
         this.offset_x_base = 20;
-        this.offset_y_base = 20;
+        this.offset_y_base = 40;
         
         this.offset_x_shift = 8;
         this.offset_y_shift = 8;
@@ -186,7 +234,7 @@ class MenuManager {
         return this.menus.length > 0;
     }
     
-    open(width, height) {
+    open(props) {
         
         // unfocus any previous menus
         this.menus.forEach(function (menu) {
@@ -196,7 +244,7 @@ class MenuManager {
         // create a new menu, with a higher offset
         var m_depth = this.menus.length;
         var new_menu = new Menu(this.offset_x_base + this.offset_x_shift * m_depth, this.offset_y_base + this.offset_y_shift * m_depth);
-        new_menu.open(width, height);
+        new_menu.open(props);
         this.menus.push(new_menu)
     }
     
@@ -1005,9 +1053,18 @@ window.onload = function() {
                         // menu toggling
                         if (e.originalEvent.key === "q") {
                             console.log("opening menu");
-                            this.menu_manager.open(10, 5);
+                            this.menu_manager.open(
+                                {
+                                    width: 15,
+                                    height: 8,
+                                    title: "I'm a Menu!",
+                                    items: [
+                                        "Menu item 1", "Menu Item 2", "Another!", "Aaaand another!?"
+                                    ]
+                                }
+                            );
                         }
-                        else if (e.originalEvent.key === "w") {
+                        else if (e.key == Crafty.keys.ESC) {
                             this.menu_manager.close();
                         }
                         else {

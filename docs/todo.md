@@ -66,16 +66,22 @@
 
 Update the menu generator:
 
- - [ ] have a stack of menus
+ - [x] have a stack of menus
  - [ ] use function pointers for moving through and managing menu state
- - [ ] keep a menu structure for the game at the window level
+ - [-] keep a menu structure for the game at the window level
  - [ ] have a check for being in the menu, and if in menus, quick return from the PlayerInteractions keydown bind
- - [ ] create a better tileset for menus
- - [ ] test out text and sprites in menu
- - [ ] use keys to navigate menu items
+ - [x] create a better tileset for menus
+ - [x] test out text and sprites in menu
+ - [x] use keys to navigate menu items
  - [ ] enter/space to select
- - [ ] esc to exit
-
+ - [x] esc to exit
+ - [ ] block all player actions when in menus
+ - [ ] menu definition structure
+  - [ ] menu generator for interacting with basic computer
+   - pass in the object def from the map
+   - pass in game state
+ - [x] menus need titles
+   
 Better Maps
  
  - [ ] map generator
@@ -83,13 +89,16 @@ Better Maps
   - [ ] data center
   - [ ] router/node
   - [ ] office building like 
-  
+ - [ ] consolidate tile definitions and map definitions
+ - [ ] move map/tile defs to a different file
+ 
 Map Scrolling
   
  - [ ] scrolling 
  
 Programs and Actions
  
+ - [ ] move stuff out of the Main Scene, into standard crafty defs
  - [ ] basic crypto miner app
  - [ ] interact with computers
   - [ ] model of items in map
