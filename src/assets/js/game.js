@@ -1059,7 +1059,7 @@ window.onload = function() {
                     
                     this.bind('KeyDown', function (e) {
                         
-                        // menu toggling
+                        // menu management
                         if (e.originalEvent.key === "q") {
                             console.log("opening menu");
                             this.menu_manager.open(

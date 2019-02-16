@@ -67,20 +67,22 @@
 Update the menu generator:
 
  - [x] have a stack of menus
- - [ ] use function pointers for moving through and managing menu state
  - [-] keep a menu structure for the game at the window level
- - [ ] have a check for being in the menu, and if in menus, quick return from the PlayerInteractions keydown bind
  - [x] create a better tileset for menus
  - [x] test out text and sprites in menu
  - [x] use keys to navigate menu items
- - [ ] enter/space to select
  - [x] esc to exit
+ - [ ] move menu manager to window level
+ - [ ] enter/space to select
  - [ ] block all player actions when in menus
+ - [ ] have a check for being in the menu, and if in menus, quick return from the PlayerInteractions keydown bind
+ - [ ] use function pointers for moving through and managing menu state
  - [ ] menu definition structure
   - [ ] menu generator for interacting with basic computer
    - pass in the object def from the map
    - pass in game state
  - [x] menus need titles
+ - better menus: https://opengameart.org/content/ui-pack-space-extension
    
 Better Maps
  
