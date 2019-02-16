@@ -1,5 +1,233 @@
 var opt_props = ""; //", SolidHitBox";
 
+class Menu {
+    constructor(offset_x, offset_y) {
+        
+        // is the menu current active
+        this.is_active = false;
+        
+        // spatial parameters for menu construction
+        this.offset_x = offset_x;
+        this.offset_y = offset_y;
+        this.item_offset_x = this.offset_x + 15;
+        this.item_offset_y = this.offset_x + 10;
+        this.item_font_size = 16;
+        this.item_line_height = this.item_font_size + 4;
+        
+        // sprite tracking
+        this.game_menu_sprites = [];
+        this.game_menu_item_sprites = [];
+        
+        // menu items
+        this.menu_items = ["Menu item 1", "Another item!", "Item 3?"];
+        this.selected_menu_item_idx = 0;
+        
+    }
+    
+    isActive() {
+        return this.is_active;
+    }
+
+    open(width, height) {
+        
+        // track our menu state so we don't stack up a whole bunch of menu sprits
+        if (this.is_active) {
+            return;
+        }
+        
+        this.is_active = true;
+        
+        // reset!
+        this.selected_menu_item_idx = 0;
+        
+        // disable the player sprite from receiving controls
+        window.game_state.player.sprite.disableControl();
+        
+        // draw the menu
+        for (var mx = 0; mx < width; mx++) {
+            for (var my = 0; my < height; my++) {
+            
+                var props = "2D, Canvas";
+            
+                // corners
+                if (mx == 0 && my == 0) {
+                    props += ", menu_nw";
+                }
+                else if (mx == 0 && my == (height - 1)) {
+                    props += ", menu_sw";
+                }
+                else if (mx == (width - 1) && my == 0) {
+                    props += ", menu_ne";
+                }
+                else if (mx == (width - 1) && my == (height - 1)) {
+                    props += ", menu_se";
+                }
+            
+                // top
+                else if (my == 0) {
+                    props += ", menu_n";
+                }
+            
+                // bottom
+                else if (my == (height - 1)) {
+                    props += ", menu_s";
+                }
+            
+                // left
+                else if (mx == 0) {
+                    props += ", menu_w";
+                }
+            
+                // right
+                else if (mx == (width - 1)) {
+                    props += ", menu_e";
+                }
+            
+                // inside
+                else {
+                    props += ", menu_c";
+                }
+            
+                var menu_tile = Crafty.e(props).attr({x: mx * 32 + this.offset_x, y: my * 32 + this.offset_y, z: 100000});
+                this.game_menu_sprites.push(menu_tile);
+            }
+        }
+            
+        for (var menu_idx = 0; menu_idx < this.menu_items.length; menu_idx++) {
+            var menu_text = Crafty.e("2D, DOM, Text")
+                .attr({x: this.item_offset_x, y: this.item_offset_y + menu_idx * this.item_line_height, w: 32 * 8})
+                .textFont({type: "Press Start 2P", size: this.item_font_size + "px"})
+                .text(this.menu_items[menu_idx]);
+            this.game_menu_item_sprites.push(menu_text);
+        }
+    
+        this.highlightSelected();
+    }
+    
+    handleKeypress(event) {
+        
+        if (event.key == Crafty.keys.DOWN_ARROW) {
+            this.selected_menu_item_idx++;
+        }
+        
+        else if (event.key == Crafty.keys.UP_ARROW) {
+            this.selected_menu_item_idx--;
+        }
+        
+        if (this.selected_menu_item_idx < 0) {
+            this.selected_menu_item_idx = this.menu_items.length - 1;
+        }
+        
+        if (this.selected_menu_item_idx >= this.menu_items.length) {
+            this.selected_menu_item_idx = 0;
+        }
+        
+        this.highlightSelected();
+    }    
+    
+    highlightSelected() {
+        
+        this.game_menu_item_sprites.forEach(function (s) {
+            s.textColor("#000000");
+        })
+    
+        this.game_menu_item_sprites[this.selected_menu_item_idx].textColor("#FF0000");
+        
+    }
+
+    // Lose the primary menu focus. We need to hide our text
+    unfocus() {
+        this.game_menu_item_sprites.forEach(function(s) {
+            s.css("display", "none");
+        });
+    }
+    
+    focus() {
+        this.game_menu_item_sprites.forEach(function(s) {
+            s.css("display", "block");
+        });        
+    }
+    
+    close() {
+    
+        // destroy all the menu sprites
+        this.game_menu_sprites.forEach(function (menu_tile) {
+            menu_tile.destroy();
+        });
+        this.game_menu_sprites = [];
+        
+        this.game_menu_item_sprites.forEach(function (item_tile) {
+            item_tile.destroy();
+        });
+        this.game_menu_item_sprites = [];
+        
+        this.is_active = false;
+        
+        // re-enable the player controls
+        window.game_state.player.sprite.enableControl();
+    
+    }
+    
+}
+
+class MenuManager {
+    
+    constructor() {
+        this.menus = [];
+        
+        this.offset_x_base = 20;
+        this.offset_y_base = 20;
+        
+        this.offset_x_shift = 8;
+        this.offset_y_shift = 8;
+    }
+    
+    isActive() {
+        return this.menus.length > 0;
+    }
+    
+    open(width, height) {
+        
+        // unfocus any previous menus
+        this.menus.forEach(function (menu) {
+            menu.unfocus();
+        });
+        
+        // create a new menu, with a higher offset
+        var m_depth = this.menus.length;
+        var new_menu = new Menu(this.offset_x_base + this.offset_x_shift * m_depth, this.offset_y_base + this.offset_y_shift * m_depth);
+        new_menu.open(width, height);
+        this.menus.push(new_menu)
+    }
+    
+    close() {
+        // close the last menu in the stack
+        
+        // don't close anything if we don't have anything
+        if (this.menus.length == 0) {
+            return;
+        }
+        
+        // pop the last menu in the stack
+        var closing = this.menus.pop();
+        closing.close();
+        
+        // if there are any menus left, focus the last of them
+        if (this.menus.length > 0) {
+            this.menus[this.menus.length - 1].focus();
+        }
+    }
+    
+    handleKeypress(event) {
+        // pass key presses to the last menu in the stack
+        if (this.menus.length == 0) {
+            return;
+        }
+        
+        this.menus[this.menus.length - 1].handleKeypress(event);
+    }
+}
+
 // var player
 
 var game_state = {
@@ -114,12 +342,24 @@ function updateComputerDisplay() {
     // check the display of computer programs
 }
 
+function updateResourceDisplay() {
+    
+    var cred_string = numberWithCommas(game_state.player.credits) + " credits";
+    document.getElementById("resource-credits").innerHTML = cred_string;
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function updateGameState() {
     
     syncComputer();
     updateComputerDisplay();
     clearProgramTable();
     fillProgramTable();
+    
+    updateResourceDisplay();
     
 }
 
@@ -152,6 +392,21 @@ function fillProgramTable() {
 }
 
 setTimeout(updateGameState, 500);
+
+
+// Take the keyboard buffer and process it, looking for particular commands
+function processKeyBuffer(buffer) {
+    var update_game_state = false;
+    
+    if (buffer === "simoleans") {
+        game_state.player.credits += 1000000;
+        update_game_state = true;
+    }
+    
+    if (update_game_state) {
+        setTimeout(updateGameState, 100);
+    }
+}
 
 // Game Map
 var game_map = {
@@ -513,6 +768,10 @@ function _has(obj, attr) {
     return typeof obj[attr] !== 'undefined';
 }
 
+
+
+
+
 window.onload = function() {
     
     
@@ -522,6 +781,21 @@ window.onload = function() {
     Crafty.init(document.getElementById("canvas-console-container").offsetWidth - 8, game_map.view.height, "canvas-console")
 //	Crafty.canvas.init();
 	
+    Crafty.sprite(32, "assets/img/scifitiles-menu.png",
+        {
+            menu_nw: [5, 3],
+            menu_n: [6, 3],
+            menu_ne: [7, 3],
+            menu_w: [5, 4],
+            menu_c: [6, 4],
+            menu_e: [7, 4],
+            menu_sw: [5, 5],
+            menu_s: [6, 5],
+            menu_se: [7, 5],
+            menu_danger: [4, 3]
+        }
+    );
+    
 	//turn the sprite map into usable components
 	Crafty.sprite(32, "assets/img/scifitiles-sheet.png", {
 		grass1: [6,1],
@@ -632,53 +906,8 @@ window.onload = function() {
             }
         }
     }
-    
-	//method to randomy generate the map
-	function generateWorld() {
-		//generate the grass along the x-axis
-		for(var i = 0; i < 13; i++) {
-			//generate the grass along the y-axis
-			for(var j = 0; j < 10; j++) {
-				grassType = Crafty.math.randomInt(1, 4);
-				Crafty.e("2D, Canvas, grass"+grassType)
-					.attr({x: i * 32, y: j * 32});
-				
-				//1/50 chance of drawing a flower and only within the bushes
-				if(i > 0 && i < 12 && j > 0 && j < 9 && Crafty.math.randomInt(0, 50) > 49) {
-					Crafty.e("2D, DOM, flower, solid, SpriteAnimation")
-						.attr({x: i * 32, y: j * 32})
-						//.animate("wind", 0, 1, 3)
-						//.animate("wind", 80, -1);
-				}
-			}
-		}
-		
-		//create the bushes along the x-axis which will form the boundaries
-		for(var i = 1; i < 12; i++) {
-            var t_x = i * 32;
-            var t_y = 0;
-            
-			Crafty.e("2D, Canvas, solid, blue_wall_n, Collision, SolidHitBox")
-				.attr({x: i * 32, y: 0, z: 2})
-                .collision([0, 0, 32, 0, 32, 16, 0, 16]);
-			Crafty.e("2D, DOM, solid, blue_wall_s, Collision, SolidHitBox")
-				.attr({x: i * 32, y: 288, z: 2})
-                .collision([0, 16, 32, 16, 32, 32, 0, 32]);
-		}
-		
-		//create the bushes along the y-axis
-		//we need to start one more and one less to not overlap the previous bushes
-		for(var i = 1; i < 9; i++) {
-			Crafty.e("2D, DOM, solid, blue_wall_w")
-				.attr({x: 0, y: i * 32, z: 2});
-			Crafty.e("2D, Canvas, solid, blue_wall_e")
-				.attr({x: 384, y: i * 32, z: 2});
-		}
-        
-        
-	}
 	
-	
+	// Main scene control
 	Crafty.scene("main", function() {
         // generateWorld();
         generateGameMap();
@@ -760,6 +989,45 @@ window.onload = function() {
 
 		});
         
+        Crafty.s("MenuControls", 
+            {
+                init: function() {
+                    console.log("Menu Controls system started");
+                    this.keyboard_buffer = "";
+                    this.keyboard_buffer_max = 9;
+                    
+                    this.menu_manager = new MenuManager();
+                    
+                    // this.requires("Keyboard");
+                    
+                    this.bind('KeyDown', function (e) {
+                        
+                        // menu toggling
+                        if (e.originalEvent.key === "q") {
+                            console.log("opening menu");
+                            this.menu_manager.open(10, 5);
+                        }
+                        else if (e.originalEvent.key === "w") {
+                            this.menu_manager.close();
+                        }
+                        else {
+                            this.menu_manager.handleKeypress(e);
+                        }
+                        
+                        // handle longer out of cycle commands, like shortcuts, easter eggs, etc
+                        this.keyboard_buffer += e.originalEvent.key;
+                        if (this.keyboard_buffer.length > this.keyboard_buffer_max) {
+                            this.keyboard_buffer = this.keyboard_buffer.substr(-1 * this.keyboard_buffer_max);
+                        }
+                        processKeyBuffer(this.keyboard_buffer);
+                        
+                    });
+                }
+            },
+            {},
+            false
+        );
+        
         Crafty.c("PlayerInteractions", {
             init: function() {
                 
@@ -795,12 +1063,13 @@ window.onload = function() {
                         }
                         
                     }
+                    
                 })
             }
         })
 		
 		//create our player entity with some premade components
-		player = Crafty.e("2D, Canvas, player, RightControls, Hero, SpriteAnimation, Animate, Collision, Keyboard, PlayerInteractions")
+		window.game_state.player.sprite = Crafty.e("2D, Canvas, player, RightControls, Hero, SpriteAnimation, Animate, Collision, Keyboard, PlayerInteractions")
             .attr({x: game_map.teleport.x * 32 + 8, y: game_map.teleport.y * 32 + 8, z:20})
             // .attr({x: 192, y: 128, z: 20})
 			.reel("PlayerWalking", 1000, 0, 0, 5)

@@ -61,6 +61,35 @@
    - [x] check "interesting" vs "uninteresting" when starting component
   - [x] create/destroy when interacting with environment
   
+  
+ - use [LinkInput](http://craftyjs.com/api/Controllable.html) to define control groups on systems...
+
+Update the menu generator:
+
+ - [ ] have a stack of menus
+ - [ ] use function pointers for moving through and managing menu state
+ - [ ] keep a menu structure for the game at the window level
+ - [ ] have a check for being in the menu, and if in menus, quick return from the PlayerInteractions keydown bind
+ - [ ] create a better tileset for menus
+ - [ ] test out text and sprites in menu
+ - [ ] use keys to navigate menu items
+ - [ ] enter/space to select
+ - [ ] esc to exit
+
+Better Maps
+ 
+ - [ ] map generator
+  - [ ] big empty box
+  - [ ] data center
+  - [ ] router/node
+  - [ ] office building like 
+  
+Map Scrolling
+  
+ - [ ] scrolling 
+ 
+Programs and Actions
+ 
  - [ ] basic crypto miner app
  - [ ] interact with computers
   - [ ] model of items in map
@@ -77,8 +106,14 @@
  - [ ] tile loads/specs as part of the game_map structure
  - [x] add collision boxes for elbow nubs
  - [ ] collision boxes for doors?
+ - [ ] no interactions through walls?
  - [ ] random map generator
  - [ ] home base generator
  - [ ] teleport to home
  - [ ] network map to select destination
  - [ ] elbow corner collision map for nubs
+ 
+ 
+# Future textures/sprites
+
+[Sci-Fi Interface Textures](https://opengameart.org/content/sci-fi-interface-textures) 
