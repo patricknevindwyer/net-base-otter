@@ -266,6 +266,15 @@ class MenuManager {
         }
     }
     
+    close_all() {
+        
+        // close all the menus
+        this.menus.forEach(function (m) {
+            m.close();
+        });
+        this.menus = [];
+    }
+    
     handleKeypress(event) {
         // pass key presses to the last menu in the stack
         if (this.menus.length == 0) {
@@ -1066,6 +1075,9 @@ window.onload = function() {
                         }
                         else if (e.key == Crafty.keys.ESC) {
                             this.menu_manager.close();
+                        }
+                        else if (e.originalEvent.key === "e") {
+                            this.menu_manager.close_all();
                         }
                         else {
                             this.menu_manager.handleKeypress(e);
