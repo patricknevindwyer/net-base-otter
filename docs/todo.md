@@ -15,9 +15,9 @@ Update the menu generator:
   - [x] pass map to function
  - [x] move tile set to top level tile set by name (blue)
  - [x] extract tile set from game map
- - move demo map into a generator
+ - [x] move demo map into a generator
  - use a generator to create the global game map at scene start
-  - could we totally bypass using the global game_map?
+  - [x] could we totally bypass using the global game_map?
  - add empty room generator
  - move tile set sprite loader into functions for tile set
  - [x] each map should specify the tile set

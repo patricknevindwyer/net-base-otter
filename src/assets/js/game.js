@@ -115,6 +115,7 @@ function processKeyBuffer(buffer) {
 window.onload = function() {
 
     var canvas_width = document.getElementById("canvas-console-container").offsetWidth;
+    var game_map = map_generators.demo();
     
     // initialize the display canvas
     Crafty.init(canvas_width - 8, game_map.view.height, "canvas-console")
@@ -125,12 +126,13 @@ window.onload = function() {
 	// Main scene control
 	Crafty.scene("main", function() {
         
+        
         // initialize the status bar HUD
-        window.status_hud = new StatusHud(6, window.game_map.view.height - 70, canvas_width - 256 - 8 - 6 - 16);
+        window.status_hud = new StatusHud(6, game_map.view.height - 70, canvas_width - 256 - 8 - 6 - 16);
         window.status_hud.start();
         
         // initialize the Stats HUD
-        window.stats_hud = new StatsHud(canvas_width - 8 - 256, 6, 256, window.game_map.view.height - 12);
+        window.stats_hud = new StatsHud(canvas_width - 8 - 256, 6, 256, game_map.view.height - 12);
         window.stats_hud.show();
         updateGameState();
         
@@ -278,8 +280,8 @@ window.onload = function() {
                         var tileLoc = pointToTile(this.x, this.y);
                         var headingLoc = tileAtHeading(tileLoc.x, tileLoc.y, this.facing);
                         
-                        if (hasTileAt(headingLoc.x, headingLoc.y)) {
-                            var tileId = tileIdAt(headingLoc.x, headingLoc.y);
+                        if (hasTileAt(game_map, headingLoc.x, headingLoc.y)) {
+                            var tileId = tileIdAt(game_map, headingLoc.x, headingLoc.y);
                             
                             // are we interacting with an interesting, or uninteresting item?
                             var interact_type = "interact_uninteresting";

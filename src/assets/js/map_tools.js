@@ -28,7 +28,7 @@ function tileAtHeading(x, y, heading) {
     return {x: x + x_alt, y: y + y_alt};
 }
 
-function hasTileAt(x, y) {
+function hasTileAt(game_map, x, y) {
     if ((x < 0) || (y < 0)) {
         return false;
     }
@@ -44,7 +44,7 @@ function hasTileAt(x, y) {
     return true;
 }
 
-function tileIdAt(x, y) {
+function tileIdAt(game_map, x, y) {
     tile_id = game_map.map[y][x];
     return tile_id;
 }
