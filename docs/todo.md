@@ -67,11 +67,14 @@
 Better Screen
 
  - [x] bigger terminal area
- - [ ] resources in screen (need a ui sprite)
-  - [ ] lower status side hud
+ - [x] resources in screen (need a ui sprite)
+  - [x] lower status side hud
+  - [x] tie lower stats hud to lower offset boundary
+  - [x] add resource/creds update and text
  - [x] alert area in screen
  - [ ] height calculated as viewport size
  - [ ] cpu/computer hud (middle)
+  - [ ] float middle stats hud vertically justified between upper and lower stats huds
   - [ ] disable program list update
   - [ ] disable CPU stats update
   - [ ] or put in side bar
@@ -82,6 +85,7 @@ Better Screen
   - [ ] age/level/message
   - [ ] default is 20 seconds
   - [ ] messages scroll every 5 seconds
+  - [ ] make it wider
 
 Update the menu generator:
 

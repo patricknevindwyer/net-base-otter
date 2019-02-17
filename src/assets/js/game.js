@@ -19,6 +19,7 @@ class StatsHud {
                 offset_y: this.offset_y,
                 tile_height: Math.floor((height * ratios[0]) / 32),
                 tile_width: this.width,
+                width: width,
                 tiles: {
                     nw: "hud_stats_nw_notch",
                     n: "hud_stats_n",
@@ -36,6 +37,7 @@ class StatsHud {
                 offset_y: Math.floor(height * ratios[0]) + this.offset_y,
                 tile_height: Math.floor((height * ratios[1]) / 32),
                 tile_width: this.width,
+                width: width,
                 tiles: {
                     nw: "hud_stats_nw",
                     n: "hud_stats_n",
@@ -50,9 +52,13 @@ class StatsHud {
             },
             bottom: {
                 offset_x: this.offset_x,
-                offset_y: Math.floor(height * (ratios[0] + ratios[1])) + this.offset_y,
+                
+                // anchor to bottom of screen area
+                offset_y: (this.offset_y + height) - Math.floor((height * ratios[2]) / 32) * 32,
                 tile_height: Math.floor((height * ratios[2]) / 32),
                 tile_width: this.width,
+                width: width,
+                font_size: 10,
                 tiles: {
                     nw: "hud_stats_nw",
                     n: "hud_stats_n",
@@ -69,6 +75,9 @@ class StatsHud {
         
         // track hud sprites
         this.hud_sprites = [];
+        
+        // text sprite tracking
+        this.resource_text_sprites = [];
     }
     
     show() {
@@ -126,6 +135,32 @@ class StatsHud {
                 Crafty.e(props).attr({x: mx * 32 + hud_props.offset_x, y: hud_props.offset_y + 32 * my, z: 100000});        
             }
         }
+    }
+    
+    /*
+        Update the resources area to show the current credits/accounting for the
+        player.
+    */
+    update_resources() {
+        
+        // destroy the old sprites
+        this.resource_text_sprites.forEach(function (s) {
+            s.destroy();
+        });
+        
+        // clear the entries
+        this.resource_text_sprites = [];
+        
+        // update the sprites
+        var text_sprite = Crafty.e("2D, DOM, Text")
+            .attr({x: this.sections.bottom.offset_x + 4, y: this.sections.bottom.offset_y + 8, w: (this.sections.bottom.width - 16)})
+            .textFont({type: "Press Start 2P", size: this.sections.bottom.font_size + "px"})
+            .textColor("#FFFFFF")
+            .textAlign("right")
+            .text(numberWithCommas(game_state.player.credits) + " creds");
+            
+        this.resource_text_sprites.push(text_sprite);
+        
     }
 }
 
@@ -610,12 +645,13 @@ function numberWithCommas(x) {
 
 function updateGameState() {
     
-    syncComputer();
-    updateComputerDisplay();
-    clearProgramTable();
-    fillProgramTable();
+    // syncComputer();
+    // updateComputerDisplay();
+    // clearProgramTable();
+    // fillProgramTable();
     
-    updateResourceDisplay();
+    window.stats_hud.update_resources();
+    // updateResourceDisplay();
     
 }
 
@@ -1195,8 +1231,10 @@ window.onload = function() {
         window.status_hud = new StatusHud(6, window.game_map.view.height - 70);
         window.status_hud.show();
         
-        window.stats_hud = new StatsHud(document.getElementById("canvas-console-container").offsetWidth - 8 - 192, 6, 192, window.game_map.view.height - 12);
+        window.stats_hud = new StatsHud(document.getElementById("canvas-console-container").offsetWidth - 8 - 256, 6, 256, window.game_map.view.height - 12);
         window.stats_hud.show();
+        window.stats_hud.update_resources();
+        
         
         // generateWorld();
         generateGameMap();
