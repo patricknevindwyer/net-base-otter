@@ -114,8 +114,10 @@ function processKeyBuffer(buffer) {
 
 window.onload = function() {
 
+    var canvas_width = document.getElementById("canvas-console-container").offsetWidth;
+    
     // initialize the display canvas
-    Crafty.init(document.getElementById("canvas-console-container").offsetWidth - 8, game_map.view.height, "canvas-console")
+    Crafty.init(canvas_width - 8, game_map.view.height, "canvas-console")
 	
     // sprites.js has our sprite data
     load_game_sprites();
@@ -124,11 +126,11 @@ window.onload = function() {
 	Crafty.scene("main", function() {
         
         // initialize the status bar HUD
-        window.status_hud = new StatusHud(6, window.game_map.view.height - 70);
+        window.status_hud = new StatusHud(6, window.game_map.view.height - 70, canvas_width - 256 - 8 - 6 - 16);
         window.status_hud.start();
         
         // initialize the Stats HUD
-        window.stats_hud = new StatsHud(document.getElementById("canvas-console-container").offsetWidth - 8 - 256, 6, 256, window.game_map.view.height - 12);
+        window.stats_hud = new StatsHud(canvas_width - 8 - 256, 6, 256, window.game_map.view.height - 12);
         window.stats_hud.show();
         updateGameState();
         

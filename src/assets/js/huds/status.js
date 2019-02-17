@@ -1,12 +1,52 @@
+/*
+    The Status HUD is the status bar that rotates between any current messages the
+    player needs to see. Messages of different levels have a different HUD color.
+    
+    Use with:
+        
+        var sh = new StatusHud(0, 0); // display at 0, 0
+        sh.start();
+        sh.info("This is an info message");
+    
+    Message Levels:
+        
+        Info
+            
+            Show an informational message, with a BLUE hud background.
+
+            sh.info("Information message");
+
+
+        Success
+        
+            Show status about a successful event, with a GREEN hud background.
+
+            sh.success("It was successful!");
+
+
+        Warning
+
+            Show a warning message, with a YELLOW background.
+
+            sh.warning("WARNING! WARNING!");
+
+        Error
+
+            Show an error condition, with a RED background.
+        
+            sh.error("Hooray I'm a llama again! wait.");
+
+*/
 class StatusHud {
-    constructor(offset_x, offset_y) {
+    constructor(offset_x, offset_y, pixel_width) {
         
         // position control
         this.offset_x = offset_x;
         this.offset_y = offset_y;
         
         // tile width
-        this.width = 15;
+        // this.width = 15;
+        this.width = Math.floor(pixel_width / 32);
         
         // messages
         this.messages = [];
@@ -26,6 +66,8 @@ class StatusHud {
         
         this.info("Reticulating splines...");
         this.success("Game started!");
+        this.warning("DANGER! DANGER!");
+        this.error("Hooray, I'm a llama again! ...wait");
         
     }
     
@@ -93,7 +135,7 @@ class StatusHud {
         var msg_payload = {message: msg};
         
         // fill in our default values
-        msg_payload = this.fillDefaults(msg_payload, {level: "success", show_max: 7});
+        msg_payload = this.fillDefaults(msg_payload, {level: "success", show_max: 6});
         
         // add to our message list
         this.messages.push(msg_payload);
@@ -101,6 +143,49 @@ class StatusHud {
         this.restart();
     }
     
+    /*
+        Function: StatusHud.warning/1
+        Parameters:
+            - `msg`: String
+    */
+    warning(msg) {
+        var msg_payload = {message: msg};
+        
+        // fill in our default values
+        msg_payload = this.fillDefaults(msg_payload, {level: "warning", show_max: 7});
+        
+        // add to our message list
+        this.messages.push(msg_payload);
+        
+        this.restart();        
+    }
+    
+    warn(msg) {
+        this.warning(msg);
+    }
+    
+    /*
+        Function: StatusHud.error/1
+        Parameters:
+            - `msg`: String
+    */
+    error(msg) {
+        var msg_payload = {message: msg};
+        
+        // fill in our default values
+        msg_payload = this.fillDefaults(msg_payload, {level: "error", show_max: 9});
+        
+        // add to our message list
+        this.messages.push(msg_payload);
+        
+        this.restart();
+    }
+    
+    /*
+        Function: display/0
+        
+        Update the HUD Status display to reflect the current message, if any.
+    */
     display() {
         
         // do we have any messages?
@@ -128,7 +213,9 @@ class StatusHud {
         // select the background and show
         var hud_color_map = {
             info: "b",
-            success: "g"
+            success: "g",
+            warning: "y",
+            error: "r"
         }
         var hud_color = hud_color_map[message.level];
         this.show_hud(hud_color);
@@ -143,6 +230,11 @@ class StatusHud {
         setTimeout(this.display.bind(this), this.hud_refresh_interval);
     }
     
+    /*
+        Function: destroy_hud/0
+    
+        Destroy the HUD sprites
+    */
     destroy_hud() {
         // destroy any existing HUD sprites
         this.hud_sprites.forEach(function (s) {
@@ -151,6 +243,13 @@ class StatusHud {
         this.hud_sprites = [];        
     }
     
+    /*
+        Function: show_hud/1
+        Parameters:
+            - `hud_color`: String. One of [b, g, y, e]
+    
+        Display the HUD background
+    */
     show_hud(hud_color) {
         
         this.destroy_hud();
@@ -182,6 +281,11 @@ class StatusHud {
         }        
     }
     
+    /*
+        Function: destroy_message/0
+        
+        Destroy the HUD text
+    */
     destroy_message() {
         if (this.text_sprite !== 0) {
             this.text_sprite.destroy();
@@ -189,6 +293,13 @@ class StatusHud {
         
     }
     
+    /*
+        Function: show_message/1
+        Parameters:
+            - `msg`: String. HUD Message
+    
+        Display the text for the current HUD message
+    */
     show_message(msg) {
          
         this.destroy_message();

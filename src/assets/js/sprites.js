@@ -2,6 +2,7 @@ function load_game_sprites() {
     // SPRITE LOADING
     Crafty.sprite(32, "assets/img/hud.png",
         {
+            // Green / Success HUD
             hud_g_nw: [3, 3],
             hud_g_n: [4, 3],
             hud_g_ne: [5, 3],
@@ -12,6 +13,7 @@ function load_game_sprites() {
             hud_g_s: [4, 5],
             hud_g_se: [5, 5],
 
+            // Blue / Info HUD
             hud_b_nw: [3, 0],
             hud_b_n: [4, 0],
             hud_b_ne: [5, 0],
@@ -21,6 +23,28 @@ function load_game_sprites() {
             hud_b_sw: [3, 2],
             hud_b_s: [4, 2],
             hud_b_se: [5, 2],
+
+            // Yellow / Warn HUD
+            hud_y_nw: [0, 3],
+            hud_y_n: [1, 3],
+            hud_y_ne: [2, 3],
+            hud_y_w: [0, 4],
+            hud_y_c: [1, 4],
+            hud_y_e: [2, 4],
+            hud_y_sw: [0, 5],
+            hud_y_s: [1, 5],
+            hud_y_se: [2, 5],
+            
+            // Red / Error HUD
+            hud_r_nw: [0, 0],
+            hud_r_n: [1, 0],
+            hud_r_ne: [2, 0],
+            hud_r_w: [0, 1],
+            hud_r_c: [1, 1],
+            hud_r_e: [2, 1],
+            hud_r_sw: [0, 2],
+            hud_r_s: [1, 2],
+            hud_r_se: [2, 2],
             
             hud_stats_nw_notch: [6, 0],
             hud_stats_sw_notch: [6, 8],
