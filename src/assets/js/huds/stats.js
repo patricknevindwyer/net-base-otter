@@ -30,26 +30,6 @@ class StatsHud {
                     se: "hud_stats_se"
                 }
             },
-            middle: {
-                offset_x: this.offset_x,
-                offset_y: Math.floor(height * ratios[0]) + this.offset_y,
-                tile_height: Math.floor((height * ratios[1]) / 32),
-                tile_width: this.width,
-                width: width,
-                font_size: 10,
-                line_height: 18,
-                tiles: {
-                    nw: "hud_stats_nw",
-                    n: "hud_stats_n",
-                    ne: "hud_stats_ne",
-                    w: "hud_stats_w",
-                    c: "hud_stats_c",
-                    e: "hud_stats_e",
-                    sw: "hud_stats_sw",
-                    s: "hud_stats_s",
-                    se: "hud_stats_se"
-                }
-            },
             bottom: {
                 offset_x: this.offset_x,
                 
@@ -72,6 +52,33 @@ class StatsHud {
                 }
             }
         };
+        
+        // calculate the middle stats box post-facto, so we can vertically center it
+        var middle_space = this.sections.bottom.offset_y - (this.sections.top.offset_y + this.sections.top.tile_height * 32);
+        var middle_height = Math.floor((height * ratios[1]) / 32) * 32;
+        var middle_pad = Math.floor((middle_space - middle_height) / 2);
+        
+        this.sections.middle = {
+            offset_x: this.offset_x,
+            offset_y: Math.floor(height * ratios[0]) + this.offset_y + middle_pad,
+            tile_height: Math.floor((height * ratios[1]) / 32),
+            tile_width: this.width,
+            width: width,
+            font_size: 10,
+            line_height: 18,
+            tiles: {
+                nw: "hud_stats_nw",
+                n: "hud_stats_n",
+                ne: "hud_stats_ne",
+                w: "hud_stats_w",
+                c: "hud_stats_c",
+                e: "hud_stats_e",
+                sw: "hud_stats_sw",
+                s: "hud_stats_s",
+                se: "hud_stats_se"
+            }
+        };
+        
         
         // track hud sprites
         this.hud_sprites = [];
