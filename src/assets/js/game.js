@@ -1,5 +1,204 @@
 var opt_props = ""; //", SolidHitBox";
 
+class StatsHud {
+
+    // Build the Stats HUD at the given x/y coordinates
+    // with the given pixel width and height
+    constructor(offset_x, offset_y, width, height) {
+        this.offset_x = offset_x;
+        this.offset_y = offset_y;
+        this.width = Math.floor(width / 32);
+        
+        // determine the height of our three sections, if x/y offset
+        // and tile height
+        var ratios = [0.6, 0.22, 0.2];
+        
+        this.sections = {
+            top: {
+                offset_x: this.offset_x,
+                offset_y: this.offset_y,
+                tile_height: Math.floor((height * ratios[0]) / 32),
+                tile_width: this.width,
+                tiles: {
+                    nw: "hud_stats_nw_notch",
+                    n: "hud_stats_n",
+                    ne: "hud_stats_ne",
+                    w: "hud_stats_w",
+                    c: "hud_stats_c",
+                    e: "hud_stats_e",
+                    sw: "hud_stats_sw",
+                    s: "hud_stats_s",
+                    se: "hud_stats_se"
+                }
+            },
+            middle: {
+                offset_x: this.offset_x,
+                offset_y: Math.floor(height * ratios[0]) + this.offset_y,
+                tile_height: Math.floor((height * ratios[1]) / 32),
+                tile_width: this.width,
+                tiles: {
+                    nw: "hud_stats_nw",
+                    n: "hud_stats_n",
+                    ne: "hud_stats_ne",
+                    w: "hud_stats_w",
+                    c: "hud_stats_c",
+                    e: "hud_stats_e",
+                    sw: "hud_stats_sw",
+                    s: "hud_stats_s",
+                    se: "hud_stats_se"
+                }
+            },
+            bottom: {
+                offset_x: this.offset_x,
+                offset_y: Math.floor(height * (ratios[0] + ratios[1])) + this.offset_y,
+                tile_height: Math.floor((height * ratios[2]) / 32),
+                tile_width: this.width,
+                tiles: {
+                    nw: "hud_stats_nw",
+                    n: "hud_stats_n",
+                    ne: "hud_stats_ne",
+                    w: "hud_stats_w",
+                    c: "hud_stats_c",
+                    e: "hud_stats_e",
+                    sw: "hud_stats_sw_notch",
+                    s: "hud_stats_s",
+                    se: "hud_stats_se"
+                }
+            }
+        };
+        
+        // track hud sprites
+        this.hud_sprites = [];
+    }
+    
+    show() {
+        
+        this.draw_hud(this.sections.top);
+        this.draw_hud(this.sections.middle);
+        this.draw_hud(this.sections.bottom);
+    }
+    
+    draw_hud(hud_props) {
+        
+        for (var mx = 0; mx < hud_props.tile_width; mx++) {
+            for (var my = 0; my < hud_props.tile_height; my++) {
+                var props = "2D, Canvas, ";
+            
+                // corners
+                if (mx == 0 && my == 0) {
+                    props += hud_props.tiles.nw;
+                }
+                else if (mx == 0 && my == (hud_props.tile_height - 1)) {
+                    props += hud_props.tiles.sw;
+                }
+                else if (mx == (hud_props.tile_width - 1) && my == 0) {
+                    props += hud_props.tiles.ne;
+                }
+                else if (mx == (hud_props.tile_width - 1) && my == (hud_props.tile_height - 1)) {
+                    props += hud_props.tiles.se;
+                }
+            
+                // top
+                else if (my == 0) {
+                    props += hud_props.tiles.n;
+                }
+            
+                // bottom
+                else if (my == (hud_props.tile_height - 1)) {
+                    props += hud_props.tiles.s;
+                }
+            
+                // left
+                else if (mx == 0) {
+                    props += hud_props.tiles.w;
+                }
+            
+                // right
+                else if (mx == (hud_props.tile_width - 1)) {
+                    props += hud_props.tiles.e;
+                }
+            
+                // inside
+                else {
+                    props += hud_props.tiles.c;
+                }        
+                
+                Crafty.e(props).attr({x: mx * 32 + hud_props.offset_x, y: hud_props.offset_y + 32 * my, z: 100000});        
+            }
+        }
+    }
+}
+
+class StatusHud {
+    constructor(offset_x, offset_y) {
+        
+        // position control
+        this.offset_x = offset_x;
+        this.offset_y = offset_y;
+        
+        // tile width
+        this.width = 15;
+        
+        // message 
+        this.message = "Reticulating splines...";
+        
+        // message display control
+        this.font_size = 12;
+        
+        // sprite tracking
+        this.hud_sprites = [];
+        this.text_sprite = 0;
+        
+    }
+    
+    show() {
+        
+        var hud_color = "g";
+        
+        for (var hx = 0; hx < this.width; hx++) {
+            
+            var tt_name = "nw";
+            var tb_name = "sw"
+            
+            if (hx == (this.width - 1)) {
+                tt_name = "ne";
+                tb_name = "se";
+            }
+            else if (hx > 0) {
+                tt_name = "n";
+                tb_name = "s";
+            }
+            
+            // top
+            var t_tile = Crafty.e("2D, Canvas, hud_" + hud_color + "_" + tt_name).attr({x: hx * 32 + this.offset_x, y: this.offset_y, z: 100000});
+            this.hud_sprites.push(t_tile);
+            
+            
+            // bottom
+            var b_tile = Crafty.e("2D, Canvas, hud_" + hud_color + "_" + tb_name).attr({x: hx * 32 + this.offset_x, y: this.offset_y + 32, z: 100000});
+            this.hud_sprites.push(b_tile);
+            
+        }
+        
+        this.status(this.message);
+        
+    }
+    
+    status(msg) {
+     
+        this.message = msg;
+        if (this.text_sprite !== 0) {
+            this.text_sprite.destroy();
+        }
+        
+        this.text_sprite = Crafty.e("2D, DOM, Text")
+            .attr({x: this.offset_x + 40, y: this.offset_y + 8, w: 32 * (this.width - 2)})
+            .textFont({type: "Press Start 2P", size: this.font_size + "px"})
+            .text(this.message);
+
+    }
+}
+
 class Menu {
     constructor(offset_x, offset_y) {
         
@@ -456,6 +655,7 @@ function processKeyBuffer(buffer) {
     var update_game_state = false;
     
     if (buffer === "simoleans") {
+        window.status_hud.status("MOAR SIMOLEANS")
         game_state.player.credits += 1000000;
         update_game_state = true;
     }
@@ -467,7 +667,7 @@ function processKeyBuffer(buffer) {
 
 // Game Map
 var game_map = {
-    view: {width: 500, height: 400},
+    view: {width: 500, height: 600},
     tiles: {
         width: 32, height: 32,
         tile_set: {
@@ -838,6 +1038,31 @@ window.onload = function() {
     Crafty.init(document.getElementById("canvas-console-container").offsetWidth - 8, game_map.view.height, "canvas-console")
 //	Crafty.canvas.init();
 	
+    Crafty.sprite(32, "assets/img/hud.png",
+        {
+            hud_g_nw: [3, 3],
+            hud_g_n: [4, 3],
+            hud_g_ne: [5, 3],
+            hud_g_w: [3, 4],
+            hud_g_c: [4, 4],
+            hud_g_e: [5, 4],
+            hud_g_sw: [3, 5],
+            hud_g_s: [4, 5],
+            hud_g_se: [5, 5],
+            hud_stats_nw_notch: [6, 0],
+            hud_stats_sw_notch: [6, 8],
+            hud_stats_nw: [6, 3],
+            hud_stats_n: [7, 3],
+            hud_stats_ne: [8, 3],
+            hud_stats_w: [6, 4],
+            hud_stats_c: [7, 4],
+            hud_stats_e: [8, 4],
+            hud_stats_sw: [6, 5],
+            hud_stats_s: [7, 5],
+            hud_stats_se: [8, 5]
+        }
+    );
+    
     Crafty.sprite(32, "assets/img/scifitiles-menu.png",
         {
             menu_nw: [5, 3],
@@ -966,6 +1191,13 @@ window.onload = function() {
 	
 	// Main scene control
 	Crafty.scene("main", function() {
+        
+        window.status_hud = new StatusHud(6, window.game_map.view.height - 70);
+        window.status_hud.show();
+        
+        window.stats_hud = new StatsHud(document.getElementById("canvas-console-container").offsetWidth - 8 - 192, 6, 192, window.game_map.view.height - 12);
+        window.stats_hud.show();
+        
         // generateWorld();
         generateGameMap();
 		

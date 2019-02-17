@@ -64,6 +64,25 @@
   
  - use [LinkInput](http://craftyjs.com/api/Controllable.html) to define control groups on systems...
 
+Better Screen
+
+ - [x] bigger terminal area
+ - [ ] resources in screen (need a ui sprite)
+  - [ ] lower status side hud
+ - [x] alert area in screen
+ - [ ] height calculated as viewport size
+ - [ ] cpu/computer hud (middle)
+  - [ ] disable program list update
+  - [ ] disable CPU stats update
+  - [ ] or put in side bar
+ - [ ] side bar in screen
+ - [ ] resizing
+ - [ ] status hud can scroll through messages, each message gets an age, after which it expires
+  - [ ] status hud
+  - [ ] age/level/message
+  - [ ] default is 20 seconds
+  - [ ] messages scroll every 5 seconds
+
 Update the menu generator:
 
  - [x] have a stack of menus
