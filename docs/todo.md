@@ -73,8 +73,8 @@ Better Screen
   - [x] add resource/creds update and text
  - [x] alert area in screen
  - [x] height calculated as viewport size
- - [ ] cpu/computer hud (middle)
-  - [ ] float middle stats hud vertically justified between upper and lower stats huds
+ - [x] cpu/computer hud (middle)
+  - [x] float middle stats hud vertically justified between upper and lower stats huds
   - [x] disable program list update
   - [x] disable CPU stats update
   - [x] or put in side bar

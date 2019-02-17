@@ -18,6 +18,8 @@ class StatsHud {
                 tile_height: Math.floor((height * ratios[0]) / 32),
                 tile_width: this.width,
                 width: width,
+                font_size: 12,
+                line_height: 18,
                 tiles: {
                     nw: "hud_stats_nw_notch",
                     n: "hud_stats_n",
@@ -79,13 +81,13 @@ class StatsHud {
             }
         };
         
-        
         // track hud sprites
         this.hud_sprites = [];
         
         // text sprite tracking
         this.resource_text_sprites = [];
         this.computer_text_sprites = [];
+        this.location_text_sprites = [];
     }
     
     show() {
@@ -201,5 +203,38 @@ class StatsHud {
             this.computer_text_sprites.push(text_sprite);
             
         }
+    }
+    
+    /*
+    
+    */
+    update_location() {
+        
+        // destroy the old sprites
+        this.location_text_sprites.forEach(function (s) {
+            s.destroy();
+        });
+        
+        // clear the entries
+        this.location_text_sprites = [];
+        
+        // setup the text we'll be rendering
+        var texts = [
+            "> DEMO Map",
+            "%&nbsp;&nbsp;127.0.0.1"
+        ];
+                    
+        // add all of the text sprites
+        for (var t_idx = 0; t_idx < texts.length; t_idx++) {
+            var text_sprite = Crafty.e("2D, DOM, Text")
+                .attr({x: this.sections.top.offset_x + 16, y: this.sections.top.offset_y + 8 + (this.sections.top.line_height * t_idx), w: (this.sections.top.width - 16)})
+                .textFont({type: "Press Start 2P", size: this.sections.top.font_size + "px"})
+                .textColor("#FFFFFF")
+                .text(texts[t_idx]);
+            
+            this.location_text_sprites.push(text_sprite);
+            
+        }
+        
     }
 }

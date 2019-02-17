@@ -63,7 +63,7 @@ function updateGameState() {
     // poke the STATS HUD to update
     window.stats_hud.update_resources();
     window.stats_hud.update_computer();
-    
+    window.stats_hud.update_location();
 }
 
 function clearProgramTable() {
