@@ -36,6 +36,8 @@ class StatsHud {
                 tile_height: Math.floor((height * ratios[1]) / 32),
                 tile_width: this.width,
                 width: width,
+                font_size: 10,
+                line_height: 18,
                 tiles: {
                     nw: "hud_stats_nw",
                     n: "hud_stats_n",
@@ -76,6 +78,7 @@ class StatsHud {
         
         // text sprite tracking
         this.resource_text_sprites = [];
+        this.computer_text_sprites = [];
     }
     
     show() {
@@ -159,5 +162,37 @@ class StatsHud {
             
         this.resource_text_sprites.push(text_sprite);
         
+    }
+    
+    /*
+        Update the computer stats area to show the current player computer.
+    */
+    update_computer() {
+
+        // destroy the old sprites
+        this.computer_text_sprites.forEach(function (s) {
+            s.destroy();
+        });
+        
+        // clear the entries
+        this.computer_text_sprites = [];
+        
+        // setup the text we'll be rendering
+        var texts = [
+            "&nbsp;CPU: " + game_state.computer.cpu.current + "/" + game_state.computer.cpu.max,
+            "DISK: " + game_state.computer.storage.current + "/" + game_state.computer.storage.max
+        ];
+                    
+        // add all of the text sprites
+        for (var t_idx = 0; t_idx < texts.length; t_idx++) {
+            var text_sprite = Crafty.e("2D, DOM, Text")
+                .attr({x: this.sections.middle.offset_x + 16, y: this.sections.middle.offset_y + 8 + (this.sections.middle.line_height * t_idx), w: (this.sections.bottom.width - 16)})
+                .textFont({type: "Press Start 2P", size: this.sections.middle.font_size + "px"})
+                .textColor("#FFFFFF")
+                .text(texts[t_idx]);
+            
+            this.computer_text_sprites.push(text_sprite);
+            
+        }
     }
 }

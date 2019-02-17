@@ -72,14 +72,18 @@ Better Screen
   - [x] tie lower stats hud to lower offset boundary
   - [x] add resource/creds update and text
  - [x] alert area in screen
- - [ ] height calculated as viewport size
+ - [x] height calculated as viewport size
  - [ ] cpu/computer hud (middle)
   - [ ] float middle stats hud vertically justified between upper and lower stats huds
-  - [ ] disable program list update
-  - [ ] disable CPU stats update
-  - [ ] or put in side bar
- - [ ] side bar in screen
+  - [x] disable program list update
+  - [x] disable CPU stats update
+  - [x] or put in side bar
+  
+ - [x] side bar in screen
  - [ ] resizing
+ - [ ] top stats bar
+  - [ ] current location/map name or type
+  - [ ] node address(es)
  - [ ] status hud can scroll through messages, each message gets an age, after which it expires
   - [ ] status hud
   - [ ] age/level/message

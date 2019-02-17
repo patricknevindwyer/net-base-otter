@@ -49,37 +49,20 @@ function syncComputer() {
     game_state.computer.storage.current = str_total;
 }
 
-function updateComputerDisplay() {
-    
-    // update the progress bars for total usage
-    cpu_perc = game_state.computer.cpu.current / game_state.computer.cpu.max * 100.0;
-    str_perc = game_state.computer.storage.current / game_state.computer.storage.max * 100.0;
-    
-    document.getElementById("cpu-usage").value = "" + Math.trunc(cpu_perc);
-    document.getElementById("storage-usage").value = "" + Math.trunc(str_perc);
-    
-    // check the display of computer programs
-}
-
-function updateResourceDisplay() {
-    
-    var cred_string = numberWithCommas(game_state.player.credits) + " credits";
-    document.getElementById("resource-credits").innerHTML = cred_string;
-}
-
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function updateGameState() {
     
-    // syncComputer();
-    // updateComputerDisplay();
+    // update the game state for computer related data
+    syncComputer();
     // clearProgramTable();
     // fillProgramTable();
     
+    // poke the STATS HUD to update
     window.stats_hud.update_resources();
-    // updateResourceDisplay();
+    window.stats_hud.update_computer();
     
 }
 
@@ -129,25 +112,16 @@ function processKeyBuffer(buffer) {
     }
 }
 
-
-
 function _has(obj, attr) {
     return typeof obj[attr] !== 'undefined';
 }
 
-
-
-
-
 window.onload = function() {
-    
-    
-	//start crafty
-    // Crafty.init(416, 380);
-    // Crafty.init(game_map.view.width, game_map.view.height, "canvas-console");
+
+    // initialize the display canvas
     Crafty.init(document.getElementById("canvas-console-container").offsetWidth - 8, game_map.view.height, "canvas-console")
-//	Crafty.canvas.init();
 	
+    // SPRITE LOADING
     Crafty.sprite(32, "assets/img/hud.png",
         {
             hud_g_nw: [3, 3],
@@ -190,13 +164,6 @@ window.onload = function() {
     
 	//turn the sprite map into usable components
 	Crafty.sprite(32, "assets/img/scifitiles-sheet.png", {
-		grass1: [6,1],
-		grass2: [6,1],
-		grass3: [6,1],
-		grass4: [6,1],
-		flower: [0,1],
-		bush1: [6,0],
-		bush2: [6,0],
         blue_wall_nw: [5, 0],
         blue_wall_n: [6, 0],
         blue_wall_ne: [7, 0],
@@ -266,7 +233,7 @@ window.onload = function() {
         // initialize the Stats HUD
         window.stats_hud = new StatsHud(document.getElementById("canvas-console-container").offsetWidth - 8 - 256, 6, 256, window.game_map.view.height - 12);
         window.stats_hud.show();
-        window.stats_hud.update_resources();
+        updateGameState();
         
         // setup the map
         generateGameMap();
