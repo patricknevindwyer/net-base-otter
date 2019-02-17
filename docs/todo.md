@@ -10,6 +10,18 @@ Usability Updates
  
 Update the menu generator:
 
+ - [x] generateGameMap
+  - [x] change name to renderGameMap
+  - [x] pass map to function
+ - [x] move tile set to top level tile set by name (blue)
+ - [x] extract tile set from game map
+ - move demo map into a generator
+ - use a generator to create the global game map at scene start
+  - could we totally bypass using the global game_map?
+ - add empty room generator
+ - move tile set sprite loader into functions for tile set
+ - [x] each map should specify the tile set
+ 
  - [x] have a stack of menus
  - [-] keep a menu structure for the game at the window level
  - [x] create a better tileset for menus

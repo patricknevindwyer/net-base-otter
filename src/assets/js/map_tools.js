@@ -49,19 +49,27 @@ function tileIdAt(x, y) {
     return tile_id;
 }
 
-function generateGameMap() {
-    for (var mx = 0; mx < game_map.map_size.width; mx++) {
-        for (var my = 0; my < game_map.map_size.height; my++) {
+/*
+    Function: renderGameMap/1
+    Parameters:
+        - `level_map`: Object. Game Map.
+*/
+function renderGameMap(level_map) {
+    
+    var tiles = window.tile_sets[level_map.tile_set];
+    
+    for (var mx = 0; mx < level_map.map_size.width; mx++) {
+        for (var my = 0; my < level_map.map_size.height; my++) {
             
             // get the current tile
-            var tile_id = game_map.map[my][mx];
+            var tile_id = level_map.map[my][mx];
             
             // skip empty tiles
             if (tile_id !== "") {
                 
                 // the tile ID in the map translates to a tile definition in the tile set
-                var tile_data = game_map.tiles.tile_set[tile_id];
-                var tile_e = Crafty.e(tile_data.props).attr({x: mx * game_map.tiles.width, y: my * game_map.tiles.height});
+                var tile_data = tiles.tile_set[tile_id];
+                var tile_e = Crafty.e(tile_data.props).attr({x: mx * tiles.width, y: my * tiles.height});
                 
                 // do we have any more attribute data?
                 if (typeof tile_data.attrs !== 'undefined') {
@@ -81,7 +89,7 @@ function generateGameMap() {
                 if (typeof tile_data.children !== 'undefined') {
                     for (var child_idx = 0; child_idx < tile_data.children.length; child_idx++) {
                         var child_data = tile_data.children[child_idx];
-                        var child = Crafty.e(child_data.props).attr({x: mx * game_map.tiles.width, y: my * game_map.tiles.height});
+                        var child = Crafty.e(child_data.props).attr({x: mx * tiles.width, y: my * tiles.height});
                         if (typeof child_data.collision !== 'undefined') {
                             child.collision(child_data.collision)
                         }

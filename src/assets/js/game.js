@@ -135,7 +135,7 @@ window.onload = function() {
         updateGameState();
         
         // setup the map
-        generateGameMap();
+        renderGameMap(game_map);
 		
 		Crafty.c('Hero', {
 			init: function() {
@@ -284,8 +284,12 @@ window.onload = function() {
                             // are we interacting with an interesting, or uninteresting item?
                             var interact_type = "interact_uninteresting";
                             var sprite_sheet_y = 2;
-                            if (_has(game_map.interactions, tileId)) {
-                                if (game_map.interactions[tileId].interesting) {
+                            
+                            // correlate the game map to the tile set, which we can then use to check
+                            var tile_set = window.tile_sets[game_map.tile_set];
+                            
+                            if (_has(tile_set.interactions, tileId)) {
+                                if (tile_set.interactions[tileId].interesting) {
                                     interact_type = "interact_interesting";
                                     sprite_sheet_y = 1;
                                 }
@@ -295,7 +299,7 @@ window.onload = function() {
                             var tile_e = Crafty.e("2D, Canvas, SpriteAnimation, " + interact_type)
                             .reel("InteractInteresting", 250, 0, sprite_sheet_y, 5)
                             .animate("InteractInteresting", -1)
-                            .attr({x: headingLoc.x * game_map.tiles.width + 8, y: headingLoc.y * game_map.tiles.height + 8});
+                            .attr({x: headingLoc.x * tile_set.width + 8, y: headingLoc.y * tile_set.height + 8});
                             setTimeout(function() {tile_e.destroy()}, 500);
                         }
                         
