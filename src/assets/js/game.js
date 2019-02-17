@@ -102,7 +102,7 @@ function processKeyBuffer(buffer) {
     var update_game_state = false;
     
     if (buffer === "simoleans") {
-        window.status_hud.status("MOAR SIMOLEANS")
+        window.status_hud.success("MOAR SIMOLEANS")
         game_state.player.credits += 1000000;
         update_game_state = true;
     }
@@ -110,10 +110,6 @@ function processKeyBuffer(buffer) {
     if (update_game_state) {
         setTimeout(updateGameState, 100);
     }
-}
-
-function _has(obj, attr) {
-    return typeof obj[attr] !== 'undefined';
 }
 
 window.onload = function() {
@@ -129,7 +125,7 @@ window.onload = function() {
         
         // initialize the status bar HUD
         window.status_hud = new StatusHud(6, window.game_map.view.height - 70);
-        window.status_hud.show();
+        window.status_hud.start();
         
         // initialize the Stats HUD
         window.stats_hud = new StatsHud(document.getElementById("canvas-console-container").offsetWidth - 8 - 256, 6, 256, window.game_map.view.height - 12);

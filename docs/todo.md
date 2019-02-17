@@ -78,19 +78,20 @@ Better Screen
   - [x] disable program list update
   - [x] disable CPU stats update
   - [x] or put in side bar
-  
  - [x] side bar in screen
- - [ ] resizing
- - [ ] top stats bar
-  - [ ] current location/map name or type
-  - [ ] node address(es)
+ - [x] top stats bar
+  - [x] current location/map name or type
+  - [x] node address(es)
  - [ ] status hud can scroll through messages, each message gets an age, after which it expires
   - [ ] status hud
   - [ ] age/level/message
-  - [ ] default is 20 seconds
-  - [ ] messages scroll every 5 seconds
+  - [ ] default is to show 5 times
+  - [ ] messages scroll every 15 seconds
   - [ ] make it wider
 
+
+ - [ ] handle window/viewport resizing
+ 
 Update the menu generator:
 
  - [x] have a stack of menus

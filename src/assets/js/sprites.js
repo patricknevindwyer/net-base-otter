@@ -11,6 +11,17 @@ function load_game_sprites() {
             hud_g_sw: [3, 5],
             hud_g_s: [4, 5],
             hud_g_se: [5, 5],
+
+            hud_b_nw: [3, 0],
+            hud_b_n: [4, 0],
+            hud_b_ne: [5, 0],
+            hud_b_w: [3, 1],
+            hud_b_c: [4, 1],
+            hud_b_e: [5, 1],
+            hud_b_sw: [3, 2],
+            hud_b_s: [4, 2],
+            hud_b_se: [5, 2],
+            
             hud_stats_nw_notch: [6, 0],
             hud_stats_sw_notch: [6, 8],
             hud_stats_nw: [6, 3],
