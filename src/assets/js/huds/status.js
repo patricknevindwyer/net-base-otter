@@ -270,12 +270,12 @@ class StatusHud {
             }
             
             // top
-            var t_tile = Crafty.e("2D, Canvas, hud_" + hud_color + "_" + tt_name).attr({x: hx * 32 + this.offset_x, y: this.offset_y, z: 100000});
+            var t_tile = Crafty.e("2D, UICanvasLayer, hud_" + hud_color + "_" + tt_name).attr({x: hx * 32 + this.offset_x, y: this.offset_y, z: 100000});
             this.hud_sprites.push(t_tile);
             
             
             // bottom
-            var b_tile = Crafty.e("2D, Canvas, hud_" + hud_color + "_" + tb_name).attr({x: hx * 32 + this.offset_x, y: this.offset_y + 32, z: 100000});
+            var b_tile = Crafty.e("2D, UICanvasLayer, hud_" + hud_color + "_" + tb_name).attr({x: hx * 32 + this.offset_x, y: this.offset_y + 32, z: 100000});
             this.hud_sprites.push(b_tile);
             
         }        
@@ -304,7 +304,7 @@ class StatusHud {
          
         this.destroy_message();
         
-        this.text_sprite = Crafty.e("2D, DOM, Text")
+        this.text_sprite = Crafty.e("2D, UIDOMLayer, Text")
             .attr({x: this.offset_x + 40, y: this.offset_y + 8, w: 32 * (this.width - 2)})
             .textFont({type: "Press Start 2P", size: this.font_size + "px"})
             .text(msg);

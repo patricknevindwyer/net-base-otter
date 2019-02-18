@@ -115,14 +115,21 @@ function processKeyBuffer(buffer) {
 window.onload = function() {
 
     var canvas_width = document.getElementById("canvas-console-container").offsetWidth;
-    var game_map = map_generators.demo();
+    // var game_map = map_generators.demo();
+    var game_map = map_generators.empty_room({width: 60, height: 20});
     
     // initialize the display canvas
     Crafty.init(canvas_width - 8, game_map.view.height, "canvas-console")
 	
+    // setup the UI layer
+    Crafty.createLayer("UICanvasLayer", "Canvas", {scaleResponse: 1, xResponse: 0, yResponse: 0, z: 120});
+    Crafty.createLayer("UIDOMLayer", "DOM", {scaleResponse: 1, xResponse: 0, yResponse: 0, z: 130});
+    
     // sprites.js has our sprite data
     load_game_sprites();
 	
+    Crafty.viewport.clampToEntities = false;
+    
 	// Main scene control
 	Crafty.scene("main", function() {
         
@@ -319,6 +326,9 @@ window.onload = function() {
             .animate("PlayerWalking", -1)
             .collision([0, 0, 16, 0, 16, 16, 0, 16])
 			.rightControls(200);
+            
+        // follow the player
+        Crafty.viewport.follow(window.game_state.player.sprite, 0, 0);
 	});
     
 	//the loading screen that will display while our assets load

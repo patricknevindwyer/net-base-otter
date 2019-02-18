@@ -101,7 +101,7 @@ class StatsHud {
         
         for (var mx = 0; mx < hud_props.tile_width; mx++) {
             for (var my = 0; my < hud_props.tile_height; my++) {
-                var props = "2D, Canvas, ";
+                var props = "2D, UICanvasLayer, ";
             
                 // corners
                 if (mx == 0 && my == 0) {
@@ -162,7 +162,7 @@ class StatsHud {
         this.resource_text_sprites = [];
         
         // update the sprites
-        var text_sprite = Crafty.e("2D, DOM, Text")
+        var text_sprite = Crafty.e("2D, UIDOMLayer, Text")
             .attr({x: this.sections.bottom.offset_x + 4, y: this.sections.bottom.offset_y + 8, w: (this.sections.bottom.width - 16)})
             .textFont({type: "Press Start 2P", size: this.sections.bottom.font_size + "px"})
             .textColor("#FFFFFF")
@@ -194,7 +194,7 @@ class StatsHud {
                     
         // add all of the text sprites
         for (var t_idx = 0; t_idx < texts.length; t_idx++) {
-            var text_sprite = Crafty.e("2D, DOM, Text")
+            var text_sprite = Crafty.e("2D, UIDOMLayer, Text")
                 .attr({x: this.sections.middle.offset_x + 16, y: this.sections.middle.offset_y + 8 + (this.sections.middle.line_height * t_idx), w: (this.sections.bottom.width - 16)})
                 .textFont({type: "Press Start 2P", size: this.sections.middle.font_size + "px"})
                 .textColor("#FFFFFF")
@@ -226,7 +226,7 @@ class StatsHud {
                     
         // add all of the text sprites
         for (var t_idx = 0; t_idx < texts.length; t_idx++) {
-            var text_sprite = Crafty.e("2D, DOM, Text")
+            var text_sprite = Crafty.e("2D, UIDOMLayer, Text")
                 .attr({x: this.sections.top.offset_x + 16, y: this.sections.top.offset_y + 8 + (this.sections.top.line_height * t_idx), w: (this.sections.top.width - 16)})
                 .textFont({type: "Press Start 2P", size: this.sections.top.font_size + "px"})
                 .textColor("#FFFFFF")

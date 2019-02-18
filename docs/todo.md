@@ -21,7 +21,7 @@ Update the menu generator:
  - add empty room generator
  - move tile set sprite loader into functions for tile set
  - [x] each map should specify the tile set
- 
+ - viewport follow works, but EVERYTHING follows. Should we move other things to a different layer? How do we fix that?
  - [x] have a stack of menus
  - [-] keep a menu structure for the game at the window level
  - [x] create a better tileset for menus
