@@ -1,9 +1,4 @@
 
-  
- - use [LinkInput](http://craftyjs.com/api/Controllable.html) to define control groups on systems...
-
-
-
 Usability Updates
 
  - [ ] handle window/viewport resizing
@@ -18,7 +13,7 @@ Update the menu generator:
  - [x] move demo map into a generator
  - use a generator to create the global game map at scene start
   - [x] could we totally bypass using the global game_map?
- - add empty room generator
+ - [x] add empty room generator
  - move tile set sprite loader into functions for tile set
  - [x] each map should specify the tile set
  - viewport follow works, but EVERYTHING follows. Should we move other things to a different layer? How do we fix that?
@@ -28,7 +23,16 @@ Update the menu generator:
  - [x] test out text and sprites in menu
  - [x] use keys to navigate menu items
  - [x] esc to exit
- - [ ] move menu manager to window level
+ - [-] move menu manager to window level
+ 
+ - [ ] Figure out how to define menus/etc for computers
+  - [ ] nested functions for computers/etc?
+  - [ ] MenuResponder classes for different interaction types
+   - this let's us keep track of what's happening
+   - we can bind the game state and map
+   - responder can track where in the menu system it is
+   - we can bind the menu manager as well
+   
  - [ ] enter/space to select
  - [ ] block all player actions when in menus
  - [ ] have a check for being in the menu, and if in menus, quick return from the PlayerInteractions keydown bind
@@ -38,21 +42,21 @@ Update the menu generator:
    - pass in the object def from the map
    - pass in game state
  - [x] menus need titles
- - better menus: https://opengameart.org/content/ui-pack-space-extension
+ - [x] better menus: https://opengameart.org/content/ui-pack-space-extension
    
 Better Maps
  
  - [ ] map generator
-  - [ ] big empty box
+  - [x] big empty box
   - [ ] data center
   - [ ] router/node
   - [ ] office building like 
- - [ ] consolidate tile definitions and map definitions
- - [ ] move map/tile defs to a different file
+ - [x] consolidate tile definitions and map definitions
+ - [x] move map/tile defs to a different file
  
 Map Scrolling
   
- - [ ] scrolling 
+ - [x] scrolling 
  
 Programs and Actions
  
