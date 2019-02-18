@@ -116,7 +116,7 @@ window.onload = function() {
 
     var canvas_width = document.getElementById("canvas-console-container").offsetWidth;
     // var game_map = map_generators.demo();
-    var game_map = map_generators.empty_room({width: 60, height: 20});
+    var game_map = map_generators.empty_room({width: 40, height: 20});
     
     // initialize the display canvas
     Crafty.init(canvas_width - 8, game_map.view.height, "canvas-console")
