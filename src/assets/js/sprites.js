@@ -133,5 +133,14 @@ function load_game_sprites() {
         disk_double_closed_right: [4, 0],
         disk_double_open_left: [5, 0],
         disk_double_open_right: [6, 0]
+    });
+    
+    Crafty.sprite(16, "assets/img/coins_16x16.png", {
+        bronze_1: [0, 0],
+        bronze_2: [1, 0],
+        bronze_3: [2, 0],
+        bronze_4: [3, 0],
+        bronze_5: [4, 0],
+        bronze_6: [5, 0]
     })
 }

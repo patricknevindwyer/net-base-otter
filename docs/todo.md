@@ -1,4 +1,24 @@
 
+Items
+
+ - [ ] sprites for basic drops
+  - [x] bronze credits
+  - [ ] silver credits
+  - [ ] gold credits
+ - [x] floating/moving drops
+ - [x] collect drops when near enough
+ - [x] how to correlate a collected drop with actual data?
+ - [ ] methods for adding different kinds of drops
+ - [ ] methods for adding drops over tiles
+ - [ ] per level drop randomizing methods
+ 
+NPCs/Bots
+
+ - [ ] basic sprites for a bot
+ - [ ] Rote movement for a bot
+ - [ ] how to move the bot
+ - [ ] pathfinding?
+ 
 Usability Updates
 
  - [ ] handle window/viewport resizing

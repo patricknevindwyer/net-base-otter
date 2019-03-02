@@ -143,8 +143,14 @@ window.onload = function() {
         window.stats_hud.show();
         updateGameState();
         
-        // setup the map
+        // setup and render the map
         renderGameMap(game_map);
+        
+        // setup any bots/npcs
+        
+        // setup any drops
+        window.drops = new Drops();
+        window.drops.addDrop(100, 100);
 		
 		Crafty.c('Hero', {
 			init: function() {
@@ -206,6 +212,17 @@ window.onload = function() {
                                 this.y = from._y;
                             }
 						}
+                        
+                        if ((hitDatas = this.hit('drop'))) {
+                            
+                            // we've hit an item!
+                            console.log("got an item!")
+                            
+                            hitDatas.forEach(function (hd) {
+                                var d = window.drops.getDropFromEntity(hd.obj);
+                                window.drops.collectDrop(d);
+                            })
+                        }
 					});
 				return this;
 			}
