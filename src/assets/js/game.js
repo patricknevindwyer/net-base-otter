@@ -115,8 +115,8 @@ function processKeyBuffer(buffer) {
 window.onload = function() {
 
     var canvas_width = document.getElementById("canvas-console-container").offsetWidth;
-    // var game_map = map_generators.demo();
-    var game_map = map_generators.empty_room({width: 40, height: 20});
+    var game_map = map_generators.demo();
+    // var game_map = map_generators.empty_room({width: 20, height: 15});
     
     // initialize the display canvas
     Crafty.init(canvas_width - 8, game_map.view.height, "canvas-console")
@@ -153,6 +153,11 @@ window.onload = function() {
         window.drops.credits("bronze", 100, 100);
         window.drops.credits("silver", 100, 200);
         window.drops.credits("gold", 100, 300);
+        window.drops.data({sprite: {sprite_base: "default", reel_base: "Default", sprite_count: 6}, name: "test data", id: "default-data-level-1"}, 100, 350);
+        
+        // setup the inventory and display it
+        window.inventory_hud = new InventoryHud(50, 50);
+        window.inventory_hud.show();
 		
 		Crafty.c('Hero', {
 			init: function() {

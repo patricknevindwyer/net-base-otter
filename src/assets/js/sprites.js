@@ -56,7 +56,13 @@ function load_game_sprites() {
             hud_stats_e: [8, 4],
             hud_stats_sw: [6, 5],
             hud_stats_s: [7, 5],
-            hud_stats_se: [8, 5]
+            hud_stats_se: [8, 5],
+            
+            inventory_gray: [1, 6],
+            inventory_red: [0, 6],
+            inventory_blue: [2, 6],
+            inventory_yellow: [1, 7],
+            inventory_green: [0, 7]
         }
     );
 
@@ -135,7 +141,7 @@ function load_game_sprites() {
         disk_double_open_right: [6, 0]
     });
     
-    Crafty.sprite(16, "assets/img/coins_16x16.png", {
+    Crafty.sprite(16, "assets/img/drops_16x16.png", {
         bronze_1: [0, 0],
         bronze_2: [1, 0],
         bronze_3: [2, 0],
@@ -153,6 +159,13 @@ function load_game_sprites() {
         gold_3: [2, 2],
         gold_4: [3, 2],
         gold_5: [4, 2],
-        gold_6: [5, 2]
+        gold_6: [5, 2],
+        default_drop_1: [0, 3],
+        default_drop_2: [1, 3],
+        default_drop_3: [2, 3],
+        default_drop_4: [3, 3],
+        default_drop_5: [4, 3],
+        default_drop_6: [5, 3],
+
     })
 }

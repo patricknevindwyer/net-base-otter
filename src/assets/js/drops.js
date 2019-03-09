@@ -50,6 +50,56 @@ class Drops {
         
     }
     
+    /*
+        Add a data drop. The payload should contain, at the least:
+            
+            {
+                sprite: {
+                    sprite_base: "default",
+                    sprite_count: 6,
+                    reel_base: "Default",
+                },
+                name: "default data",
+                id: "default-data-level-1"
+            }
+    
+        The entire data payload will be returned as part of sprite matching. Data drops
+        are processed by the inventory handler.
+    
+        The `name` field is the human readable, nice name, for the data.
+    
+        The `id` field is the type and level of the data. Items with the same ID can be stacked,
+        while items with different IDs cannot. The ID is used to denote the different between, say,
+        the different levels/quantities of different data items.
+    */
+    data(payload, x, y) {
+
+        // build out the sprites we'll use for animation
+        var reel_sprites = [];
+        var reel_name = "Data" + payload.sprite.reel_base + "Drop";
+        
+        for (var i = 2; i <= payload.sprite.sprite_count; i++) {
+            reel_sprites.push(payload.sprite.sprite_base + "_drop_" + i);
+        }
+        reel_sprites.push(payload.sprite.sprite_base + "_drop_1");
+        
+        var drop = Crafty.e("2D, Canvas, SpriteAnimation, drop, " + payload.sprite.sprite_base + "_drop_1");
+        drop.reel(reel_name, 600, reel_sprites);
+        drop.animate(reel_name, -1);
+        drop.attr({x: x, y: y, z: 100000});
+        
+        this.drop_list.push(
+            {
+                x: x,
+                y: y,
+                sprite: drop,
+                name: payload.name,
+                type: "data"
+            }
+        )
+        
+    }
+    
     addDrop(x, y, props, data) {
         
         // create the sprite for the drop
@@ -112,6 +162,11 @@ class Drops {
             
             // set a window update trigger
             setTimeout(updateGameState, 100);
+        }
+        else if (d.type === "data") {
+            
+            // picking up some data for the inventory
+            console.log("picked up some data");
         }
         
     }
