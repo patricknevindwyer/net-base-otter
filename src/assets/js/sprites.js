@@ -141,6 +141,18 @@ function load_game_sprites() {
         bronze_3: [2, 0],
         bronze_4: [3, 0],
         bronze_5: [4, 0],
-        bronze_6: [5, 0]
+        bronze_6: [5, 0],
+        silver_1: [0, 1],
+        silver_2: [1, 1],
+        silver_3: [2, 1],
+        silver_4: [3, 1],
+        silver_5: [4, 1],
+        silver_6: [5, 1],
+        gold_1: [0, 2],
+        gold_2: [1, 2],
+        gold_3: [2, 2],
+        gold_4: [3, 2],
+        gold_5: [4, 2],
+        gold_6: [5, 2]
     })
 }

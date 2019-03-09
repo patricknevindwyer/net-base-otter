@@ -150,7 +150,9 @@ window.onload = function() {
         
         // setup any drops
         window.drops = new Drops();
-        window.drops.addDrop(100, 100);
+        window.drops.credits("bronze", 100, 100);
+        window.drops.credits("silver", 100, 200);
+        window.drops.credits("gold", 100, 300);
 		
 		Crafty.c('Hero', {
 			init: function() {

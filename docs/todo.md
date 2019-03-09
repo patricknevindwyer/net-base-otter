@@ -3,13 +3,25 @@ Items
 
  - [ ] sprites for basic drops
   - [x] bronze credits
-  - [ ] silver credits
-  - [ ] gold credits
+  - [x] silver credits
+  - [x] gold credits
+  - [ ] data drops
+ - [ ] items for drops
+  - [ ] data fragment
+  - [ ] algo fragment
+  - [ ] item generator
+ - [ ] inventory
+  - [ ] pickup and add when space available
+  - [ ] don't pickup when not
+  - [ ] notify when picking up
+  - [ ] notify when inventory full
+  - [ ] inventory browser  
  - [x] floating/moving drops
  - [x] collect drops when near enough
  - [x] how to correlate a collected drop with actual data?
  - [ ] methods for adding different kinds of drops
  - [ ] methods for adding drops over tiles
+  - [ ] move a random amount from center
  - [ ] per level drop randomizing methods
  
 NPCs/Bots
@@ -73,6 +85,7 @@ Better Maps
   - [ ] office building like 
  - [x] consolidate tile definitions and map definitions
  - [x] move map/tile defs to a different file
+ - [ ] warp between maps
  
 Map Scrolling
   

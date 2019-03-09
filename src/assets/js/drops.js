@@ -4,7 +4,53 @@ class Drops {
         this.drop_list = [];
     }
     
-    addDrop(x, y) {
+    /*
+        Add a credits drop. If type is undefined, it will default to BRONZE.
+    
+        # Examples
+    
+            credits("bronze", 200, 150)
+            credits("gold", 120, 300)
+            credits("silver", 100, 300)
+    */
+    credits(t, x, y) {
+        
+        var sprite_base = "bronze";
+        var reel_base = "Bronze";
+        var value = 1;
+        
+        if (t === "silver") {
+            sprite_base = "silver";
+            reel_base = "Silver";
+            value = 25;
+        }
+        else if (t === "gold") {
+            sprite_base = "gold";
+            reel_base = "gold";
+            value = 100;
+        }
+
+        // create the sprite for the drop
+        var drop  = Crafty.e("2D, Canvas, SpriteAnimation, " + sprite_base + "_1, drop")
+        .reel(reel_base + "Drop", 600, [sprite_base + "_2", sprite_base + "_3", sprite_base + "_4", sprite_base + "_5", sprite_base + "_6", sprite_base + "_1"])
+        .animate(reel_base + "Drop", -1)
+        .attr({x: x, y: y, z: 100000});
+        
+        this.drop_list.push(
+            {
+                x: x,
+                y: y,
+                sprite: drop,
+                value: value,
+                name: sprite_base + " coin",
+                type: "credits"
+            }
+        )
+        
+        
+    }
+    
+    addDrop(x, y, props, data) {
         
         // create the sprite for the drop
         var drop  = Crafty.e("2D, Canvas, SpriteAnimation, bronze_1, drop")
@@ -38,7 +84,7 @@ class Drops {
         var ents = this.drop_list.filter( dl => dl.sprite == e);
         
         if (ents.length == 0) {
-            return [];
+            return undefined;
         }
         else {
             return ents[0];
