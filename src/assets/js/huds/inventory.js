@@ -57,6 +57,13 @@ class InventoryHud {
     }
     
     /*
+        Set the number of slots to display.
+    */
+    set_slot_count(slot_count) {
+        this.slots.total = slot_count;
+    }
+    
+    /*
         Bind the refresh event, so we trigger our switch between different
         messages as needed.
     */
@@ -65,14 +72,38 @@ class InventoryHud {
     }
     
     /*
-        Function: show/0
+        Function: show/1
         
-        Update the HUD and bring up the inventory display
+        Update the HUD and bring up the inventory display, using the contents of the given inventory. The
+        inventory should look like:
+    
+            {
+                max_size: 12,
+                slots: [
+                    {
+                        name: "item name",
+                        id: "item id",
+                        sprite: "static sprite name"
+                    },
+                    {
+                        name: "",
+                        id: 0,
+                        sprite: ""
+                    }
+                ]
+            }
+        
+        If the inventory `max_size` is different from the currently configured slot size of
+        the inventory HUD, the HUD will be adjusted.
     */
-    show() {
+    show(inv) {
+        
+        this.set_slot_count(inv.max_size);
         
         // select the background and show
         this.show_hud("b");
+        
+        this.show_slots(inv.slots);
         
         // show the text
         // this.show_message(message.message);
@@ -85,7 +116,7 @@ class InventoryHud {
         Destroy the hud and inventory display data.
     */
     hide() {
-        this.destory_hud();
+        this.destroy_hud();
     }
     /*
         Function: destroy_hud/0
@@ -98,6 +129,32 @@ class InventoryHud {
             s.destroy();
         });
         this.hud_sprites = [];        
+    }
+    
+    /*
+        Display each of the items in the inventory, keeping in mind that inventory items
+        can represent "blank" items.
+    */
+    show_slots(items) {
+        
+        for (var idx = 0; idx < items.length; idx++) {
+            
+            // pick the item
+            var item = items[idx];
+            
+            // is this a real item, or an empty spot?
+            if (item.id !== 0) {
+                
+                // determine the slot
+                var slot_x = idx % this.width + 1;
+                var slot_y = Math.floor(idx / this.width) + 1
+                
+                // now where do we draw this sprite?
+                var t_tile = Crafty.e("2D, UICanvasLayer, " + item.sprite).attr({x: slot_x * 32 + this.offset_x + 8, y: slot_y * 32 + this.offset_y + 8, z: 100000});
+                this.hud_sprites.push(t_tile);
+                
+            }
+        }
     }
     
     /*

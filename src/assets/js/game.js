@@ -3,7 +3,17 @@ var game_state = {
     
     // Player model
     player: {
-        credits: 0
+        credits: 0,
+        inventory: {
+            max_size: 7,
+            slots: [
+                {
+                    name: "data default",
+                    id: "data-default-level-01",
+                    sprite: "default_drop_1"
+                }
+            ]
+        }
     },
     computer: {
         model: "Seerlight 300",
@@ -157,7 +167,8 @@ window.onload = function() {
         
         // setup the inventory and display it
         window.inventory_hud = new InventoryHud(50, 50);
-        window.inventory_hud.show();
+        
+        // window.inventory_hud.show(window.game_state.player.inventory);
 		
 		Crafty.c('Hero', {
 			init: function() {
@@ -276,9 +287,15 @@ window.onload = function() {
                         }
                         else if (e.key == Crafty.keys.ESC) {
                             this.menu_manager.close();
+                            window.inventory_hud.hide();
+                            window.game_state.player.sprite.enableControl();
                         }
                         else if (e.originalEvent.key === "e") {
                             this.menu_manager.close_all();
+                        }
+                        else if (e.originalEvent.key === "i") {
+                            window.game_state.player.sprite.disableControl();
+                            window.inventory_hud.show(game_state.player.inventory)
                         }
                         else {
                             this.menu_manager.handleKeypress(e);
