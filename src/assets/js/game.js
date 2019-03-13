@@ -5,12 +5,13 @@ var game_state = {
     player: {
         credits: 0,
         inventory: {
-            max_size: 7,
+            max_size: 17,
             slots: [
                 {
                     name: "data default",
                     id: "data-default-level-01",
-                    sprite: "default_drop_1"
+                    sprite: "default_drop_1",
+                    quantity: 32
                 }
             ]
         }
@@ -298,7 +299,12 @@ window.onload = function() {
                             window.inventory_hud.show(game_state.player.inventory)
                         }
                         else {
-                            this.menu_manager.handleKeypress(e);
+                            if (this.menu_manager.active()) {
+                                this.menu_manager.handleKeypress(e);
+                            }
+                            else if (window.inventory_hud.active()) {
+                                window.inventory_hud.handleKeypress(e);
+                            }
                         }
                         
                         // handle longer out of cycle commands, like shortcuts, easter eggs, etc

@@ -246,6 +246,10 @@ class MenuManager {
         this.menus.push(new_menu)
     }
     
+    active() {
+        return this.menus.length > 0;
+    }
+    
     close() {
         // close the last menu in the stack
         

@@ -16,6 +16,19 @@ Items
   - [ ] notify when picking up
   - [ ] notify when inventory full
   - [ ] inventory browser  
+   - [x] display inventory HUD
+   - [x] move cursor in HUD
+   - [x] show name of item under cursor in HUD
+   - [x] show quantity of item under cursor in HUD
+   - [ ] select items in HUD
+    - [ ] move items in HUD
+     - [ ] move to empty space
+     - [ ] move to occupied space
+     - [ ] split and move
+     - [ ] move to space with same object
+     - [ ] use item from HUD
+    - [ ] delete items in HUD
+    - [ ] select items for action in HUD (like selling/applying/installing)
  - [x] floating/moving drops
  - [x] collect drops when near enough
  - [x] how to correlate a collected drop with actual data?
