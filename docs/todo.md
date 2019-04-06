@@ -1,4 +1,10 @@
+Fixes:
 
+ When swapping items in the inventory, we need to redraw the items in the hud
+  - move hud item sprites to a different list
+  - destroy item sprites in a method
+  - destroy/render item sprites on a swap
+  
 Items
 
  - [ ] sprites for basic drops

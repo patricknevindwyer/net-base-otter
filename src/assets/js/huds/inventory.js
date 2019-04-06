@@ -137,6 +137,9 @@ class InventoryHud {
                     if (this.cursor_index === this.selected_index) {
                         this.unselect_slot(this.cursor_index);
                     }
+                    else {
+                        this.select_slot(this.cursor_index);
+                    }
                 }
             }
         }
@@ -341,16 +344,84 @@ class InventoryHud {
     */
     select_slot(slot_index) {
         
-        // don't reselect
+        // we're already in a selection - what's happening though?
         if (this.in_selection) {
-            return;
+            
+            if (this.is_slot_empty(slot_index)) {
+                // SLOT SELECTED    ||    TARGET EMPTY
+                
+                // we'll move the item here. we need to ensure there are enough spaces, then we can switch it out
+                this.ensure_inventory_slots();
+                this.swap_slots(this.selected_index, slot_index);
+                this.unselect_slot(this.selected_index);
+                return;
+                
+            }
+            else {
+                
+                // SLOT SELECTED    ||    TARGET FILLED
+                return;
+            }
         }
         
         this.toggle_slot(slot_index, "selected");
         this.in_selection = true;
-        this.selected_index = slot_index
+        this.selected_index = slot_index;
     }
     
+    /*
+        Function: swap_slots/2
+        
+        Swap the contents of two slots.
+    */
+    swap_slots(slot_a, slot_b) {
+        
+        var sa = this.active_inventory.slots[slot_a];
+        var sb = this.active_inventory.slots[slot_b];
+        this.active_inventory.slots[slot_a] = sb;
+        this.active_inventory.slots[slot_b] = sa;
+    }
+    
+    /*
+        Function: ensure_inventory_slots/0
+    
+        Make sure the active inventory is properly filled with empty items.
+    */
+    ensure_inventory_slots() {
+        
+        while (this.active_inventory.slots.length < this.active_inventory.max_size) {
+            this.active_inventory.slots.push({
+                    name: "",
+                    id: 0,
+                    sprite: "",
+                    quantity: 0
+                })
+        }
+    }
+    
+    /*
+        Function: is_slot_empty/1
+        
+        Determine if the given slot in the currently active index is empty.
+    */  
+    is_slot_empty(slot_index) {
+        
+        if (this.active_inventory[slot_index] === undefined) {
+            return true;
+        }
+        else if (this.active_inventory[slot_index].id === 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    /*
+        Function: unselect_slot/1
+        
+        Stop selecting a slot, and move the display and cursor back to normal.
+    */
     unselect_slot(slot_index) {
         
         this.in_selection = false;
